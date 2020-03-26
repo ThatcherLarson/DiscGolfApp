@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Disc Golf App</string>
+    <string name="login">Login</string>
+    <string name="create_account">Create an Account</string>
+    <string name="welcome">Welcome!</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="string_incorrect_login">The email and/or password you entered is incorrect</string>
+    <string name="string_first_name">First Name</string>
+    <string name="string_last_name">Last Name</string>
+    <string name="string_pass_req">Password must be at least 8 characters.</string>
+    <string name="string_confirm_pass">Confirm Password</string>
+    <string name="string_incorrect_pass">Passwords do not match.</string>
+    <string name="string_create">Create Account</string>
+    <string name="string_register">Register</string>
+    <string name="register_form_error">Please fill out all fields.</string>
 </resources>
