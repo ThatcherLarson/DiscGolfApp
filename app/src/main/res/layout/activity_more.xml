@@ -6,4 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".MoreActivity">
 
+    <Button
+        android:id="@+id/rulesBtn"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:text="Rules"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="125dp" />
+
+    <Button
+        android:id="@+id/tutorialsBtn"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:text="Tutorials"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="261dp" />
+
+    <Button
+        android:id="@+id/measureThrowBtn"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:text="Measure Throw"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="401dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
