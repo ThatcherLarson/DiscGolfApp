@@ -12,7 +12,7 @@
         android:layout_height="49dp"
         android:layout_gravity="start"
         android:enabled="true"
-        android:text="@string/login"
+        android:text="Play New Game"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +22,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCourses"
-        android:layout_width="412dp"
-        android:layout_height="509dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnNewGame"
+        android:layout_width="match_parent"
+        android:layout_height="560dp"
+        android:paddingTop="10px"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
