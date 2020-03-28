@@ -14,4 +14,17 @@
     <string name="string_create">Create Account</string>
     <string name="string_register">Register</string>
     <string name="register_form_error">Please fill out all fields.</string>
+    
+    <string-array name="course_names">
+        <item>Course 1</item>
+        <item>Course 2</item>
+        <item>Course 3</item>
+        <item>Course 4</item>
+        <item>Course 5</item>
+        <item>Course 6</item>
+        <item>Course 7</item>
+        <item>Course 8</item>
+        <item>Course 9</item>
+        <item>Course 10</item>
+    </string-array>
 </resources>
