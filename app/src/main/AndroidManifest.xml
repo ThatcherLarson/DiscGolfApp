@@ -6,7 +6,6 @@
 
     <application
         android:allowBackup="true"
-        android:exported="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launch_round"
@@ -18,7 +17,8 @@
         <activity android:name=".MoreActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MyBagActivity" />
-        <activity android:name=".CoursesActivity" />
+        <activity android:name=".CoursesActivity"
+            android:exported="true"/>
         <activity android:name=".GamesActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
