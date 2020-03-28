@@ -1,24 +1,28 @@
 package com.example.discgolfapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import controllers.LoginController;
-import models.LoginModel;
+import controllers.CoursesController;
+import models.CoursesModel;
+import models.RVAdapter;
 
 public class CoursesActivity extends AppCompatActivity {
-    private LoginController controller;
-    private LoginModel model;
+    private CoursesController controller;
+    private CoursesModel model;
     private FirebaseAuth auth;
 
     private Button btnNewGame;
+    private RecyclerView course_list;
 
-    String s1[], s2[];
-    int images[] = {R.drawable.disc_golf_basic};
+    private String s1[], s2[];
+    private int images[] = {R.drawable.disc_golf_basic};
 
 
     @Override
@@ -26,14 +30,21 @@ public class CoursesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
-        s1 = getResources().getStringArray(R.array.course_names);
-        s2 = getResources().getStringArray(R.array.course_descriptions);
-
-        controller = new LoginController(this);
-        model = new LoginModel();
+        controller = new CoursesController();
+        model = new CoursesModel();
         auth = FirebaseAuth.getInstance();
 
         // initialize view elements
         btnNewGame = findViewById(R.id.btnNewGame);
+        course_list = findViewById(R.id.rvCourses);
+
+        s1 = getResources().getStringArray(R.array.course_names);
+        s2 = getResources().getStringArray(R.array.course_descriptions);
+
+        RVAdapter myAdapter = new RVAdapter(this, s1, s2, images);
+        course_list.setAdapter(myAdapter);
+        course_list.setLayoutManager(new LinearLayoutManager(this));
+
+
     }
 }
