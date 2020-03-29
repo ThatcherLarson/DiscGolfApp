@@ -35,9 +35,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        controller = new LoginController(this);
-        model = new LoginModel();
         auth = FirebaseAuth.getInstance();
+        controller = new LoginController(auth);
+        model = new LoginModel();
 
         // initialize view elements
         email = findViewById(R.id.username);
@@ -62,14 +62,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void tryLogin(String username, String pass) {
-        auth.signInWithEmailAndPassword(username, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        controller.loginUser(username, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 loadingBar.setVisibility(View.INVISIBLE);
                 if (task.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), GamesActivity.class);
                     startActivity(intent);
-                    LoginActivity.super.onDestroy();
                 } else {
                     incorrectLoginText.setVisibility(View.VISIBLE);
                     email.getText().clear();

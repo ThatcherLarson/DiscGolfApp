@@ -11,9 +11,11 @@ public class RegisterController {
         this.auth = auth;
     }
 
-    public boolean verifyInput(String firstName, String lastName, String email, String password) {
-        return !(firstName.length() <= 0 || lastName.length() <= 0 ||
-                email.length() <= 0 || password.length() < 8);
+    public boolean verifyInput(String firstName, String lastName, String email, String password, String confirmPass) {
+        boolean everythingFilled = (firstName.length() > 0 && lastName.length() > 0 &&
+                email.length() > 0 && password.length() > 0 && confirmPass.length() > 0);
+        boolean passwordReqs = (password.length() >= 8 && password.equals(confirmPass));
+        return everythingFilled && passwordReqs;
     }
 
     public Task<AuthResult> createUser(String email, String password) {

@@ -10,7 +10,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private TextView passMatch;
     private TextView passReq;
     private TextView formError;
+    private ProgressBar loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +61,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         passMatch = findViewById(R.id.textPasswordMatch);
         passReq = findViewById(R.id.textPasswordReqs);
         formError = findViewById(R.id.textFormError);
+        loadingBar = findViewById(R.id.regisLoading);
 
         passMatch.setVisibility(View.INVISIBLE);
         passReq.setVisibility(View.INVISIBLE);
         formError.setVisibility(View.GONE);
+        loadingBar.setVisibility(View.INVISIBLE);
 
         registerBtn.setOnClickListener(this);
+        registerBtn.setEnabled(false);
 
         password.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,6 +89,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     passReq.setVisibility(View.INVISIBLE);
                 }
+
+                registerBtn.setEnabled(
+                        controller.verifyInput(firstName.getText().toString(), lastName.getText().toString(),
+                                email.getText().toString(), password.getText().toString(), confirmPassword.getText().toString())
+                );
             }
         });
 
@@ -101,13 +112,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void afterTextChanged(Editable s) {
                 if (!s.toString().equals(password.getText().toString())) {
                     passMatch.setVisibility(View.VISIBLE);
-                    registerBtn.setEnabled(false);
                 } else {
                     passMatch.setVisibility(View.INVISIBLE);
-                    if (password.getText().toString().length() >= 8) {
-                        registerBtn.setEnabled(true);
-                    }
                 }
+
+                registerBtn.setEnabled(
+                        controller.verifyInput(firstName.getText().toString(), lastName.getText().toString(),
+                                email.getText().toString(), password.getText().toString(), confirmPassword.getText().toString())
+                );
             }
         });
 
@@ -116,26 +128,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.registerBtn) {
-            boolean formVal = controller.verifyInput(firstName.getText().toString(), lastName.getText().toString(),
-                                    email.getText().toString(), password.getText().toString());
-            if (formVal) {
-                final String first = firstName.getText().toString();
-                final String last = lastName.getText().toString();
-                final String uName = email.getText().toString();
-                final String pass = password.getText().toString();
-                formError.setVisibility(View.GONE);
-                controller.createUser(uName, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            User user = new User(first, last, uName, auth.getCurrentUser().getUid());
-                            addUser(user);  // add a document in the DB for the created user
-                        }
+            loadingBar.setVisibility(View.VISIBLE);
+            final String first = firstName.getText().toString();
+            final String last = lastName.getText().toString();
+            final String uName = email.getText().toString();
+            final String pass = password.getText().toString();
+            controller.createUser(uName, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        User user = new User(first, last, uName, auth.getCurrentUser().getUid());
+                        addUser(user);  // add a document in the DB for the created user
+                    } else {
+                        loadingBar.setVisibility(View.INVISIBLE);
+                        String errMsg = task.getException().getMessage();
+                        Toast.makeText(getApplicationContext(), "User unable to be created: " + errMsg, Toast.LENGTH_LONG).show();
+
                     }
-                });
-            } else {
-                formError.setVisibility(View.VISIBLE);
-            }
+                }
+            });
         }
     }
 

@@ -14,6 +14,7 @@
     <string name="string_create">Create Account</string>
     <string name="string_register">Register</string>
     <string name="register_form_error">Please fill out all fields.</string>
+    <string name="string_sign_out">Sign Out</string>
     
     <string-array name="course_names">
         <item>Course 1</item>
@@ -40,4 +41,5 @@
         <item>Description of Course 9</item>
         <item>Description of Course 10</item>
     </string-array>
+
 </resources>

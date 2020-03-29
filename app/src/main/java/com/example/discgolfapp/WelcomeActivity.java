@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import controllers.WelcomeController;
 import models.WelcomeModel;
 
@@ -14,6 +16,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     private WelcomeController controller;
     private WelcomeModel model;
+
+    private FirebaseAuth auth;
+
     private Button loginBtn;
     private Button createAccountBtn;
 
@@ -23,7 +28,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_welcome);
 
         // initialize model and controller to handle view events
-        controller = new WelcomeController(this);
+        auth = FirebaseAuth.getInstance();
+        controller = new WelcomeController(this, auth);
         model = new WelcomeModel();
 
         // initialize view elements
@@ -32,6 +38,12 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         loginBtn.setOnClickListener(this);
         createAccountBtn.setOnClickListener(this);
+
+        // try to log the user in if they have previously
+        if (controller.tryAutoLogin()) {
+            Intent intent = new Intent(this, GamesActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

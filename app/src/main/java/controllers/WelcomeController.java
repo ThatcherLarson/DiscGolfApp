@@ -5,12 +5,16 @@ import android.content.Intent;
 
 import com.example.discgolfapp.LoginActivity;
 import com.example.discgolfapp.RegisterActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomeController {
-    Context context;
+    private Context context;
+    private FirebaseAuth auth;
 
-    public WelcomeController(Context context) {
+
+    public WelcomeController(Context context, FirebaseAuth auth) {
         this.context = context;
+        this.auth = auth;
     }
 
     public Intent clickLogin() {
@@ -19,5 +23,9 @@ public class WelcomeController {
 
     public Intent clickCreate() {
         return new Intent(context, RegisterActivity.class);
+    }
+
+    public boolean tryAutoLogin() {
+        return auth.getCurrentUser() != null;
     }
 }
