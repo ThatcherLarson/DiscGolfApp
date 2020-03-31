@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 loadingBar.setVisibility(View.INVISIBLE);
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), GamesActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
                     startActivity(intent);
                 } else {
                     incorrectLoginText.setVisibility(View.VISIBLE);
