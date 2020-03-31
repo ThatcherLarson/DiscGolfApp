@@ -78,6 +78,8 @@ public class CoursesActivity extends AppCompatActivity {
             case R.id.more:
                 startActivity(new Intent(this, MoreActivity.class));
                 return true;
+            case R.id.bag:
+                startActivity(new Intent(this, MyBagActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
