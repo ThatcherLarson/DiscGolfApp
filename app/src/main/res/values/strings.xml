@@ -15,7 +15,9 @@
     <string name="string_register">Register</string>
     <string name="register_form_error">Please fill out all fields.</string>
     <string name="string_sign_out">Sign Out</string>
-    
+    <string name="string_remember">Remember Me</string>
+    <string name="user_login_details">UserLoginDetails</string>
+
     <string-array name="course_names">
         <item>Course 1</item>
         <item>Course 2</item>

@@ -40,10 +40,10 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         createAccountBtn.setOnClickListener(this);
 
         // try to log the user in if they have previously
-        if (controller.tryAutoLogin()) {
-            Intent intent = new Intent(this, CoursesActivity.class);
-            startActivity(intent);
-        }
+//        if (controller.tryAutoLogin()) {
+//            Intent intent = new Intent(this, CoursesActivity.class);
+//            startActivity(intent);
+//        }
     }
 
     @Override
