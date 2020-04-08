@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileController {
@@ -11,5 +12,9 @@ public class ProfileController {
 
     public void signOutUser() {
         auth.signOut();
+    }
+
+    public Task<Void> resetPassword() {
+        return auth.sendPasswordResetEmail(auth.getCurrentUser().getEmail());
     }
 }

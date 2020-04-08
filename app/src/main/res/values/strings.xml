@@ -17,6 +17,10 @@
     <string name="string_sign_out">Sign Out</string>
     <string name="string_remember">Remember Me</string>
     <string name="user_login_details">UserLoginDetails</string>
+    <string name="string_name">Full Name</string>
+    <string name="string_reset_pass">Reset Password</string>
+    <string name="string_forgot_pass">Forgot Password?</string>
+    <string name="string_enter_email">Enter your account email.</string>
 
     <string-array name="course_names">
         <item>Course 1</item>
