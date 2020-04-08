@@ -25,13 +25,15 @@ public class CreateAccountTest {
 
     @Test
     public void createAccount() {
-        // Type text and then press the button.
-        //onView(withId(R.id.login)).perform(click());
-        onView(withId(R.id.textFirstName)).perform(typeText("Test"), closeSoftKeyboard());
-        onView(withId(R.id.textLastName)).perform(typeText("Test"), closeSoftKeyboard());
-        onView(withId(R.id.textEmail)).perform(typeText("test@test.com"), closeSoftKeyboard());
-        onView(withId(R.id.textPassword)).perform(typeText("password123"), closeSoftKeyboard());
-        onView(withId(R.id.textConfirmPass)).perform(typeText("password123"), closeSoftKeyboard());
+        final String firstName = "Test";
+        final String lastName = "Test";
+        final String email = "test@test.com";
+        final String password = "password123";
+        onView(withId(R.id.textFirstName)).perform(typeText(firstName), closeSoftKeyboard());
+        onView(withId(R.id.textLastName)).perform(typeText(lastName), closeSoftKeyboard());
+        onView(withId(R.id.textEmail)).perform(typeText(email), closeSoftKeyboard());
+        onView(withId(R.id.textPassword)).perform(typeText(password), closeSoftKeyboard());
+        onView(withId(R.id.textConfirmPass)).perform(typeText(password), closeSoftKeyboard());
         onView(withId(R.id.registerBtn)).perform(click());
 
     }

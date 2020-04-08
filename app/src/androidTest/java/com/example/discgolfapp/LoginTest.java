@@ -25,12 +25,11 @@ public class LoginTest {
 
     @Test
     public void login() {
-        // Type text and then press the button.
-        //onView(withId(R.id.login)).perform(click());
-        onView(withId(R.id.username)).perform(typeText("dbondi@wisc.edu"), closeSoftKeyboard());
-        onView(withId(R.id.password)).perform(typeText("pePPer123!"), closeSoftKeyboard());
+        final String email = "dbondi@wisc.edu";
+        final String password = "pePPer123!";
+        onView(withId(R.id.username)).perform(typeText(email), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText(password), closeSoftKeyboard());
         onView(withId(R.id.login)).perform(click());
-        //onView(withId(R.id.btnNewGame)).perform(click());
 
     }
 
