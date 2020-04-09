@@ -16,6 +16,12 @@
     <string name="register_form_error">Please fill out all fields.</string>
     <string name="profile">User Information</string>
     <string name="string_sign_out">Sign Out</string>
+    <string name="add_course">Add Course</string>
+    <string name="enter_title">Enter Title</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="holes">Holes</string>
+    <string name="save_course">Save Course</string>
     <string name="string_remember">Remember Me</string>
     <string name="user_login_details">UserLoginDetails</string>
     <string name="string_name">Full Name</string>
@@ -26,6 +32,7 @@
     <string name="string_change">Change</string>
     <string name="string_new_val">New Value</string>
     <string name="string_profile_pic">Profile Picture</string>
+    <string name="enter_decription">Enter Description</string>
 
     <string-array name="course_names">
         <item>Course 1</item>
