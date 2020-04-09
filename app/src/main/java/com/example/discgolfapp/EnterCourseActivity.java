@@ -6,9 +6,14 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.NumberPicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,20 +26,23 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
+import adapters.ParAdapter;
 import controllers.CoursesController;
 import models.CoursesModel;
 import models.DiscMap;
 
 import static util.Constants.MAPVIEW_BUNDLE_KEY;
 
-public class EnterCourseActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class EnterCourseActivity extends AppCompatActivity implements OnMapReadyCallback,NumberPicker.OnValueChangeListener {
     private CoursesController controller;
     private CoursesModel model;
     private FirebaseAuth auth;
 
     private MapView mMapView;
-    private RecyclerView mMapRecyclerView;
-
+    private Button saveBtn;
+    private RecyclerView parList;
+    private NumberPicker parNumPick;
+    private ParAdapter myAdapter;
     //vars
     private ArrayList<DiscMap> mMapList = new ArrayList<>();
 
@@ -42,7 +50,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_course);
+        setContentView(R.layout.activity_enter_course);
 
         controller = new CoursesController(this);
         model = new CoursesModel();
@@ -52,10 +60,37 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
         }
-        mMapView = (MapView) findViewById(R.id.mapView);
+        mMapView = (MapView) findViewById(R.id.map_new_game);
         mMapView.onCreate(mapViewBundle);
 
         mMapView.getMapAsync(this);
+
+        saveBtn = findViewById(R.id.saveCourse);
+        parList = findViewById(R.id.pars);
+        parNumPick = findViewById(R.id.npPars);
+
+        final NumberPicker np = (NumberPicker) parNumPick;
+        np.setMaxValue(36);
+        np.setMinValue(1);
+        np.setValue(9);
+        np.setWrapSelectorWheel(false);
+        np.setOnValueChangedListener(this);
+
+
+        myAdapter = new ParAdapter(np.getValue());
+
+        parList.setAdapter(myAdapter);
+        parList.setLayoutManager(new LinearLayoutManager(this));
+
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+        }
+        });
 
 
         //MapController myMapController = myMapView.getController();
@@ -151,5 +186,16 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+       myAdapter.update(newVal,oldVal);
+       parList.requestLayout();
+        //parList.setAdapter(myAdapter);
+        //parList.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+
 
 }

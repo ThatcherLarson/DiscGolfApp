@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100"
+        android:background="#ffab40">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:id="@+id/map_new_game_container">
+
+            <com.google.android.gms.maps.MapView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/map_new_game" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="38"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+
+                android:orientation="vertical">
+
+
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/title"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_weight=".3"/>
+
+                <EditText android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:hint="@string/enter_title"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:windowSoftInputMode="stateVisible|adjustNothing"
+                    android:textSize="10dp"
+                    android:layout_weight=".3"/>
+
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/description"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_weight=".3"/>
+
+                <EditText android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:hint="@string/enter_decription"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="10dp"
+                    android:windowSoftInputMode="stateVisible|adjustNothing"
+                    android:layout_weight=".3"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".2" >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".5"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5"
+                        android:text="@string/holes"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:orientation="vertical">
+                    </TextView>
+                    <NumberPicker
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/npPars"
+
+                        android:orientation="vertical">
+                    </NumberPicker>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".2" >
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".15"
+                    android:text="@string/pars"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:orientation="vertical">
+                </TextView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/pars"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:paddingTop="10px"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="12"
+            android:id="@+id/save_course_container">
+
+            <Button
+                android:id="@+id/saveCourse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/save_course"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
