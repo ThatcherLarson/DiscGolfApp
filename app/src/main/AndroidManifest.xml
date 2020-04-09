@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,17 +14,23 @@
         android:roundIcon="@mipmap/ic_launch_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".RulesActivity"></activity>
         <activity android:name=".MeasureThrowActivity" />
         <activity android:name=".TutorialsActivity" />
         <activity android:name=".MoreActivity" />
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".FindCourseActivity" />
         <activity android:name=".MyBagActivity" />
         <activity android:name=".CoursesActivity"
             android:exported="true"/>
         <activity android:name=".GamesActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyATft7zrL68bMv5mFBK_aa73Zzfk4L1XtA"
+        />
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
