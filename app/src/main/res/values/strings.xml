@@ -21,6 +21,10 @@
     <string name="string_reset_pass">Reset Password</string>
     <string name="string_forgot_pass">Forgot Password?</string>
     <string name="string_enter_email">Enter your account email.</string>
+    <string name="string_email_addr">Email Address</string>
+    <string name="string_change">Change</string>
+    <string name="string_new_val">New Value</string>
+    <string name="string_profile_pic">Profile Picture</string>
 
     <string-array name="course_names">
         <item>Course 1</item>

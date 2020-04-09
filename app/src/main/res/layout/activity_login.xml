@@ -6,14 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/textForgot"
+    <Button
+        android:id="@+id/btnForgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
         android:text="@string/string_forgot_pass"
+        android:textAllCaps="false"
         android:textColor="@color/colorDarkBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textIncorrectLogin" />
@@ -69,9 +71,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:enabled="true"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,6 +105,6 @@
         android:layout_marginTop="8dp"
         android:text="@string/string_remember"
         app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/textForgot" />
+        app:layout_constraintTop_toBottomOf="@+id/btnForgot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

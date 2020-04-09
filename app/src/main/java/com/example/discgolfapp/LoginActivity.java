@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar loadingBar;
     private TextView incorrectLoginText;
     private CheckBox remember;
-    private TextView textForgot;
+    private Button btnForgot;
 
 
     @Override
@@ -55,10 +55,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loadingBar = findViewById(R.id.loading);
         incorrectLoginText = findViewById(R.id.textIncorrectLogin);
         remember = findViewById(R.id.btnRemember);
-        textForgot = findViewById(R.id.textForgot);
+        btnForgot = findViewById(R.id.btnForgot);
 
         loginBtn.setOnClickListener(this);
-        textForgot.setOnClickListener(this);
+        btnForgot.setOnClickListener(this);
 
         // initially hide some view elements
         loadingBar.setVisibility(View.INVISIBLE);
@@ -81,7 +81,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 tryLogin(email.getText().toString(), password.getText().toString());
                 break;
 
-            case R.id.textForgot:
+            case R.id.btnForgot:
+                btnForgot.setTextColor(getResources().getColor(R.color.colorSkyBlue));
                 buildForgotPassDialog();
         }
     }
