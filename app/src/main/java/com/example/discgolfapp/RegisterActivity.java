@@ -157,6 +157,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (task.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
                     startActivity(intent);
+                } else {
+                    String message = task.getException().getMessage();
+                    Toast.makeText(getApplicationContext(), "An error occurred: " + message, Toast.LENGTH_LONG).show();
                 }
             }
         });

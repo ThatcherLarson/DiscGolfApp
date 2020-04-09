@@ -18,10 +18,7 @@ public class RegisterModel {
 
     public Task<Void> publishUser(User user) {
         FirebaseUser currUser = auth.getCurrentUser();
-        if (currUser != null) {
-            currUser.updateProfile(buildUserProfile(user.getFirstName() + " " + user.getLastName()));
-        }
-        return db.collection("users").document(user.getUid()).set(user);
+        return currUser.updateProfile(buildUserProfile(user.getFirstName() + " " + user.getLastName()));
     }
 
     private UserProfileChangeRequest buildUserProfile(String name) {
