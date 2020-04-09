@@ -1,16 +1,21 @@
 package com.example.discgolfapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +36,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar loadingBar;
     private TextView incorrectLoginText;
     private CheckBox remember;
+    private Button btnForgot;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +55,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loadingBar = findViewById(R.id.loading);
         incorrectLoginText = findViewById(R.id.textIncorrectLogin);
         remember = findViewById(R.id.btnRemember);
+        btnForgot = findViewById(R.id.btnForgot);
 
         loginBtn.setOnClickListener(this);
+        btnForgot.setOnClickListener(this);
 
         // initially hide some view elements
         loadingBar.setVisibility(View.INVISIBLE);
@@ -66,9 +75,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.login) {
-            loadingBar.setVisibility(View.VISIBLE);
-            tryLogin(email.getText().toString(), password.getText().toString());
+        switch (v.getId()) {
+            case R.id.login:
+                loadingBar.setVisibility(View.VISIBLE);
+                tryLogin(email.getText().toString(), password.getText().toString());
+                break;
+
+            case R.id.btnForgot:
+                btnForgot.setTextColor(getResources().getColor(R.color.colorSkyBlue));
+                buildForgotPassDialog();
         }
     }
 
@@ -85,6 +100,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     incorrectLoginText.setVisibility(View.VISIBLE);
                     email.getText().clear();
                     password.getText().clear();
+                }
+            }
+        });
+    }
+
+    private void buildForgotPassDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.layout_forgot_password, null);
+        builder.setView(view);
+        final EditText email = view.findViewById(R.id.editForgotEmail);
+        builder.setTitle(R.string.string_enter_email);
+        builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                forgotPass(email.getText().toString());
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void forgotPass(String email) {
+        controller.resetPassword(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "A password reset email has been sent to your account email.", Toast.LENGTH_LONG).show();
+                } else {
+                    String message = task.getException().getMessage();
+                    Toast.makeText(getApplicationContext(), "An exception occurred: " + message, Toast.LENGTH_LONG).show();
                 }
             }
         });

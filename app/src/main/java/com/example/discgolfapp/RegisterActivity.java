@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         controller = new RegisterController(auth);
-        model = new RegisterModel(db);
+        model = new RegisterModel(db, auth);
 
         firstName = findViewById(R.id.textFirstName);
         lastName = findViewById(R.id.textLastName);
@@ -157,8 +157,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (task.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
                     startActivity(intent);
+                } else {
+                    String message = task.getException().getMessage();
+                    Toast.makeText(getApplicationContext(), "An error occurred: " + message, Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
+
+
 }

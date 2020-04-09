@@ -40,4 +40,8 @@ public class LoginController {
         }
         return null;
     }
+
+    public Task<Void> resetPassword(String email) {
+        return auth.sendPasswordResetEmail(email);
+    }
 }
