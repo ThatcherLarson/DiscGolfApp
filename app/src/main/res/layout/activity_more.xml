@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MoreActivity">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffab40" />
-
     <Button
         android:id="@+id/rulesBtn"
         android:layout_width="200dp"
