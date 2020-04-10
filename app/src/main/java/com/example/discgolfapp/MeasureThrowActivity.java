@@ -24,10 +24,20 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.maps.model.LatLng;
 
-public class MeasureThrowActivity extends AppCompatActivity {
+public class MeasureThrowActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private MapView mapView;
+    private GoogleMap gmap;
+    private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
     int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
@@ -48,13 +58,21 @@ public class MeasureThrowActivity extends AppCompatActivity {
 
         Button startBtn = (Button) findViewById(R.id.startBtn);
         Button endBtn = (Button) findViewById(R.id.endBtn);
+        Button clearBtn = (Button) findViewById(R.id.clearBtn);
         Button calcDistance = (Button) findViewById(R.id.calcDistance);
         latTextView = findViewById(R.id.latTextView);
         lonTextView = findViewById(R.id.lonTextView);
         distTextView = findViewById(R.id.distTextView);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        Bundle mapViewBundle = null;
+        if (savedInstanceState != null) {
+            mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        }
 
+        mapView = findViewById(R.id.mMapView);
+        mapView.onCreate(mapViewBundle);
+        mapView.getMapAsync(this);
 
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,11 +95,21 @@ public class MeasureThrowActivity extends AppCompatActivity {
                 loc1.setLongitude(initLongitude);
                 loc2.setLatitude(endLatitude);
                 loc2.setLongitude(endLongitude);
+                if (initLatitude != 0 && endLatitude != 0) {
+                    LatLngBounds THROW = new LatLngBounds(new LatLng(initLatitude, initLongitude), new LatLng(endLatitude, endLongitude));
+                    gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(THROW.getCenter(), 19));
+                }
                 float distanceInMeters = loc1.distanceTo(loc2);
                 distTextView.setText(distanceInMeters + " meters");
             }
         });
 
+        clearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gmap.clear();
+            }
+        });
     }
 
     @SuppressLint("MissingPermission")
@@ -98,8 +126,12 @@ public class MeasureThrowActivity extends AppCompatActivity {
                                 } else {
                                     initLatitude = location.getLatitude();
                                     initLongitude = location.getLongitude();
-                                    latTextView.setText(location.getLatitude()+""); //temporary to make sure location updates
-                                    lonTextView.setText(location.getLongitude()+""); //temporary to make sure location updates
+                                    latTextView.setText("Latitude: " + location.getLatitude()+"");
+                                    lonTextView.setText("Longitude: " + location.getLongitude()+"");
+                                    gmap.setMinZoomPreference(19);
+                                    LatLng init = new LatLng(initLatitude, initLongitude);
+                                    gmap.addMarker(new MarkerOptions().position(init));
+                                    gmap.moveCamera(CameraUpdateFactory.newLatLng(init));
                                 }
                             }
                         }
@@ -128,8 +160,12 @@ public class MeasureThrowActivity extends AppCompatActivity {
                                 } else {
                                     endLatitude = location.getLatitude();
                                     endLongitude = location.getLongitude();
-                                    latTextView.setText(location.getLatitude()+""); //temporary to make sure location updates
-                                    lonTextView.setText(location.getLongitude()+""); //temporary to make sure location updates
+                                    latTextView.setText("Latitude: " + location.getLatitude()+"");
+                                    lonTextView.setText("Longitude: " + location.getLongitude()+"");
+                                    gmap.setMinZoomPreference(19);
+                                    LatLng end = new LatLng(initLatitude, initLongitude);
+                                    gmap.addMarker(new MarkerOptions().position(end));
+                                    gmap.moveCamera(CameraUpdateFactory.newLatLng(end));
                                 }
                             }
                         }
@@ -208,7 +244,55 @@ public class MeasureThrowActivity extends AppCompatActivity {
         super.onResume();
         if (checkPermissions()) {
             getLastLocationStart();
+            mapView.onResume();
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        if (mapViewBundle == null) {
+            mapViewBundle = new Bundle();
+            outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle);
+        }
+
+        mapView.onSaveInstanceState(mapViewBundle);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+    @Override
+    protected void onPause() {
+        mapView.onPause();
+        super.onPause();
+    }
+    @Override
+    protected void onDestroy() {
+        mapView.onDestroy();
+        super.onDestroy();
+    }
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        gmap = googleMap;
+        gmap.setMinZoomPreference(12);
+        LatLng start = new LatLng(43.073051, -89.401230);
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(start));
     }
 }
