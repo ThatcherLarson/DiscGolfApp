@@ -12,7 +12,7 @@
 
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
 
@@ -22,7 +22,7 @@
         android:id="@+id/parVal"
         android:maxLines="1"
         android:inputType="text"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
