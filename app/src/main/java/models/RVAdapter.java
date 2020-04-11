@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,12 +50,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
 
         private TextView name, description;
         private ImageView image;
+        private CheckBox favorite;
 
         public RVViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tvCourseName);
             description = itemView.findViewById(R.id.tvCourseDescription);
             image = itemView.findViewById(R.id.ivCourseImage);
+            favorite = itemView.findViewById(R.id.cbFavorite);
         }
     }
 }
