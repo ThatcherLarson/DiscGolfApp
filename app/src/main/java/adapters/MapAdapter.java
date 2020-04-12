@@ -44,9 +44,9 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
         ((ViewHolder) holder).description.setText(mMaps.get(position).getDescription());
         ((ViewHolder) holder).title.setText(mMaps.get(position).getTitle());
         //((ViewHolder)holder).image.setImageDrawable(mMaps.get(position).getImage());
-        ((ViewHolder) holder).numPars.setText(Integer.toString(mMaps.get(position).getNumPars()));
-        ((ViewHolder) holder).milesAway.setText(String.format("%.2f", (mMaps.get(position).getMilesAway())));
-        ((ViewHolder) holder).favorite.setText(Boolean.toString(mMaps.get(position).getFavorite()));
+        ((ViewHolder) holder).numPars.setText("Holes: "+Integer.toString(mMaps.get(position).getNumPars()));
+        ((ViewHolder) holder).milesAway.setText("Miles Away: "+String.format("%.2f", (mMaps.get(position).getMilesAway())));
+        ((ViewHolder) holder).favorite.setChecked(mMaps.get(position).getFavorite());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.tvCourseDescriptionMapList);
+            title = itemView.findViewById(R.id.tvCourseNameMapList);
             //image = itemView.findViewById(R.id.ivCourseImageMap);
             description = itemView.findViewById(R.id.tvCourseDescriptionMapList);
             numPars = itemView.findViewById(R.id.tvParsMapList);

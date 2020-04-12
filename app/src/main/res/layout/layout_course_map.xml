@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     android:text="Title"
                     android:textStyle="bold"/>
 
@@ -80,6 +80,12 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/tvFavorite"
+                    />
                 <TextView
                     android:id="@+id/tvMilesAway"
                     android:layout_width="wrap_content"
@@ -88,12 +94,6 @@
                     android:layout_marginLeft="8dp"
                     android:text="MilesAway"
                     android:textSize="16sp"/>
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/tvFavorite"
-                    />
 
                 >
 
