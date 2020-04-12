@@ -26,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     private ArrayList<String> pars;
     private ArrayList<String> yards;
 
+    FirebaseFirestore db;
     //vars
 
 
@@ -56,7 +58,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_course);
-
+        db = FirebaseFirestore.getInstance();
         controller = new CoursesController(this);
         model = new CoursesModel();
         auth = FirebaseAuth.getInstance();
@@ -198,6 +200,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
 
     //TODO save course
     public void save_course(){
+
         ArrayList<String> pars = myAdapter.get_pars();
         ArrayList<String> yards = myAdapter.getYards();
         TextView courseTitle = (TextView)findViewById(R.id.courseTitle);
@@ -206,7 +209,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         String courseTitleData = courseTitle.toString();
         String courseDescriptionData = courseDescription.toString();
         Matrix courseImageData = courseImage.getImageMatrix();
-
 
     }
 

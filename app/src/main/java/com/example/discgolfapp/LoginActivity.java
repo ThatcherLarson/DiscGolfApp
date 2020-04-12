@@ -1,21 +1,20 @@
 package com.example.discgolfapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -93,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 loadingBar.setVisibility(View.INVISIBLE);
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), FindCourseActivity.class);
                     startActivity(intent);
                     controller.saveUserandPass(email.getText().toString(), password.getText().toString(), remember.isChecked());
                 } else {

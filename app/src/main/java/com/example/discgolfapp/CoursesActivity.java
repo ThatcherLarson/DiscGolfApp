@@ -73,9 +73,6 @@ public class CoursesActivity extends AppCompatActivity {
             case R.id.find:
                 startActivity(new Intent(this, FindCourseActivity.class));
                 return true;
-            case R.id.courses:
-                startActivity(new Intent(this, CoursesActivity.class));
-                return true;
             case R.id.profile:
                 startActivity(new Intent(this, ProfileActivity.class));
                 return true;

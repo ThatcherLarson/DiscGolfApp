@@ -7,6 +7,9 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -52,6 +55,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     private MapView mMapView;
     private RecyclerView mMapRecyclerView;
     private Button createMap;
+    private Button btnNewGame;
     GoogleMap googleMap;
     //vars
     public ArrayList<DiscMap> mMapList = new ArrayList<>();
@@ -104,6 +108,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
         mapList = findViewById(R.id.course_list_container);
         mapList.setAdapter(myAdapter);
         mapList.setLayoutManager(new LinearLayoutManager(this));
+        btnNewGame = findViewById(R.id.btnNewGame);
 
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -114,11 +119,22 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                 startActivity(new Intent(FindCourseActivity.this, EnterCourseActivity.class));
             }
         });
+        btnNewGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(FindCourseActivity.this, GamesActivity.class));
+            }
+        });
 
 
 
         //MapController myMapController = myMapView.getController();
 
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.nav_menu, menu);
+        return true;
     }
 
     private void loadDataWithMiles(final FirestoreCallBack firestoreCallBack){
@@ -292,6 +308,29 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //respond to menu item selection
+        //respond to menu item selection
+        switch (item.getItemId()) {
+            case R.id.games:
+                startActivity(new Intent(this, GamesActivity.class));
+                return true;
+            case R.id.find:
+                startActivity(new Intent(this, FindCourseActivity.class));
+                return true;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileActivity.class));
+                return true;
+            case R.id.more:
+                startActivity(new Intent(this, MoreActivity.class));
+                return true;
+            case R.id.bag:
+                startActivity(new Intent(this, MyBagActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

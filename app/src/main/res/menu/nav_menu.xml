@@ -4,8 +4,6 @@
         android:title="Games" />
     <item android:id="@+id/find"
         android:title="Find Course" />
-    <item android:id="@+id/courses"
-        android:title="Courses" />
     <item android:id="@+id/bag"
         android:title="My Bag" />
     <item android:id="@+id/profile"

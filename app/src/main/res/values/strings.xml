@@ -38,6 +38,7 @@
     <string name="yards">Yards</string>
     <string name="par">Par</string>
     <string name="hole">Hole</string>
+    <string name="new_game">Start New Game</string>
 
     <string-array name="course_names">
         <item>Course 1</item>
