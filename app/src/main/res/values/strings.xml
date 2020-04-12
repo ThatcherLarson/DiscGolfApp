@@ -35,6 +35,9 @@
     <string name="enter_decription">Enter Description</string>
     <string name="pars">Pars</string>
     <string name="image">Image</string>
+    <string name="yards">Yards</string>
+    <string name="par">Par</string>
+    <string name="hole">Hole</string>
 
     <string-array name="course_names">
         <item>Course 1</item>

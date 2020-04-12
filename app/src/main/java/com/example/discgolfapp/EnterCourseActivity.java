@@ -3,13 +3,16 @@ package com.example.discgolfapp;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Matrix;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -29,7 +32,6 @@ import java.util.ArrayList;
 import adapters.ParAdapter;
 import controllers.CoursesController;
 import models.CoursesModel;
-import models.DiscMap;
 
 import static util.Constants.MAPVIEW_BUNDLE_KEY;
 
@@ -43,8 +45,11 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     private RecyclerView parList;
     private NumberPicker parNumPick;
     private ParAdapter myAdapter;
+
+    private ArrayList<String> pars;
+    private ArrayList<String> yards;
+
     //vars
-    private ArrayList<DiscMap> mMapList = new ArrayList<>();
 
 
     @Override
@@ -69,6 +74,9 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         parList = findViewById(R.id.pars);
         parNumPick = findViewById(R.id.npPars);
 
+
+
+
         final NumberPicker np = (NumberPicker) parNumPick;
         np.setMaxValue(36);
         np.setMinValue(1);
@@ -88,7 +96,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                save_course();
         }
         });
 
@@ -187,8 +195,25 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         mMapView.onLowMemory();
     }
 
+
+    //TODO save course
+    public void save_course(){
+        ArrayList<String> pars = myAdapter.get_pars();
+        ArrayList<String> yards = myAdapter.getYards();
+        TextView courseTitle = (TextView)findViewById(R.id.courseTitle);
+        TextView courseDescription = (TextView)findViewById(R.id.courseDescription);
+        ImageView courseImage = (ImageView) findViewById(R.id.courseImage);
+        String courseTitleData = courseTitle.toString();
+        String courseDescriptionData = courseDescription.toString();
+        Matrix courseImageData = courseImage.getImageMatrix();
+
+
+    }
+
+
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
 
        myAdapter.update(newVal,oldVal);
        parList.requestLayout();

@@ -51,6 +51,7 @@
 
                 <EditText android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:id="@+id/courseTitle"
                     android:hint="@string/enter_title"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -70,6 +71,7 @@
 
                 <EditText android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:id="@+id/courseDescription"
                     android:hint="@string/enter_decription"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -160,17 +162,46 @@
                 android:layout_weight="1.8"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight=".15"
-                    android:text="@string/pars"
-                    android:textColor="@android:color/white"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:orientation="vertical">
-                </TextView>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".3"
+                        android:text="@string/hole"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        android:orientation="vertical">
+                    </TextView>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".3"
+                        android:text="@string/par"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        android:orientation="vertical">
+                    </TextView>`
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".3"
+                        android:text="@string/yards"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        android:orientation="vertical">
+                    </TextView>`
+                </LinearLayout>`
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/pars"
