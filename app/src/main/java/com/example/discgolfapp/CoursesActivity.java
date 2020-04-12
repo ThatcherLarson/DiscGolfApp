@@ -65,6 +65,7 @@ public class CoursesActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         //respond to menu item selection
+        //respond to menu item selection
         switch (item.getItemId()) {
             case R.id.games:
                 startActivity(new Intent(this, GamesActivity.class));

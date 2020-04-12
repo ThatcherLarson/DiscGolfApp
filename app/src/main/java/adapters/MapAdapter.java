@@ -3,6 +3,7 @@ package adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,12 +16,16 @@ import java.util.ArrayList;
 
 import models.DiscMap;
 
-public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder>{
+public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
 
-    private ArrayList<DiscMap> mMaps = new ArrayList<>();
+    private ArrayList<DiscMap> mMaps;
 
 
     public MapAdapter(ArrayList<DiscMap> discMaps) {
+        this.mMaps = discMaps;
+    }
+
+    public void update(ArrayList<DiscMap> discMaps) {
         this.mMaps = discMaps;
     }
 
@@ -28,7 +33,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_disc_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_course_map, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -36,11 +41,12 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        ((ViewHolder)holder).description.setText(mMaps.get(position).getDescription());
-        ((ViewHolder)holder).title.setText(mMaps.get(position).getTitle());
-        ((ViewHolder)holder).image.setImageDrawable(mMaps.get(position).getImage());
-
-
+        ((ViewHolder) holder).description.setText(mMaps.get(position).getDescription());
+        ((ViewHolder) holder).title.setText(mMaps.get(position).getTitle());
+        //((ViewHolder)holder).image.setImageDrawable(mMaps.get(position).getImage());
+        ((ViewHolder) holder).numPars.setText(Integer.toString(mMaps.get(position).getNumPars()));
+        ((ViewHolder) holder).milesAway.setText(String.format("%.2f", (mMaps.get(position).getMilesAway())));
+        ((ViewHolder) holder).favorite.setText(Boolean.toString(mMaps.get(position).getFavorite()));
     }
 
     @Override
@@ -48,20 +54,26 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder>{
         return mMaps.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder
-    {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         ImageView image;
         TextView description;
+        TextView numPars;
+        TextView milesAway;
+        CheckBox favorite;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.tvCourseName);
-            image = itemView.findViewById(R.id.ivCourseImage);
-            description = itemView.findViewById(R.id.tvCourseDescription);
+            title = itemView.findViewById(R.id.tvCourseDescriptionMapList);
+            //image = itemView.findViewById(R.id.ivCourseImageMap);
+            description = itemView.findViewById(R.id.tvCourseDescriptionMapList);
+            numPars = itemView.findViewById(R.id.tvParsMapList);
+            milesAway = itemView.findViewById(R.id.tvMilesAway);
+            favorite = itemView.findViewById(R.id.tvFavorite);
         }
 
 
     }
+
 
 }
