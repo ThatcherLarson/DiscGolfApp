@@ -66,4 +66,43 @@
         <item>Description of Course 10</item>
     </string-array>
 
+    <string name="numPlay">Number of Players</string>
+    <string name="numHole">Number of Holes</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="player3">Player 3</string>
+    <string name="startGame">Start Game</string>
+    <string name="invite">Invite</string>
+    <string name="name">Name</string>
+
+    <string name="hole1">Hole 1</string>
+    <string name="hole2">Hole 2</string>
+    <string name="hole3">Hole 3</string>
+    <string name="hole4">Hole 4</string>
+    <string name="hole5">Hole 5</string>
+    <string name="hole6">Hole 6</string>
+    <string name="hole7">Hole 7</string>
+    <string name="hole8">Hole 8</string>
+    <string name="hole9">Hole 9</string>
+    <string name="hole10">Hole 10</string>
+    <string name="hole11">Hole 11</string>
+    <string name="hole12">Hole 12</string>
+    <string name="hole13">Hole 13</string>
+    <string name="hole14">Hole 14</string>
+    <string name="hole15">Hole 15</string>
+    <string name="hole16">Hole 16</string>
+    <string name="hole17">Hole 17</string>
+    <string name="hole18">Hole 18</string>
+
+    <string-array name="player_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="hole_array">
+        <item>9</item>
+        <item>18</item>
+    </string-array>
+
 </resources>
