@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,6 +52,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     private MapView mMapView;
     private RecyclerView mMapRecyclerView;
     private Button createMap;
+    GoogleMap googleMap;
     //vars
     public ArrayList<DiscMap> mMapList = new ArrayList<>();
     private MapAdapter myAdapter;
@@ -82,6 +82,19 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                 mMapList = list;
                 myAdapter.update(mMapList);
                 myAdapter.notifyDataSetChanged();
+                for (DiscMap course : mMapList) {
+                    MarkerOptions marker = new MarkerOptions();
+                    marker.position(new LatLng(course.getLatitude(), course.getLongitude()));
+                    marker.title(course.getTitle());
+                    marker.snippet(course.getDescription());
+                    googleMap.addMarker(marker);
+            /*
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            */
+                }
             }
         });
         mMapView.getMapAsync(this);
@@ -232,6 +245,8 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+
+
     }
 
     @Override
@@ -248,22 +263,17 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap map) {
+        googleMap = map;
 
-        map.addMarker(new MarkerOptions().position(new LatLng(43.073929,-89.385239)).title("Marker"));
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        map.animateCamera(CameraUpdateFactory.zoomTo( 5.0f ) );
-        if(ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
-        ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(5.0f));
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        map.setMyLocationEnabled(true);
-
-
+        googleMap.setMyLocationEnabled(true);
     }
 
     @Override
