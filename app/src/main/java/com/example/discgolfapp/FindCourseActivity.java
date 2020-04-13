@@ -223,27 +223,8 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
         }
         return true;
     }
-    /*
-    private void initUserListRecyclerView() {
-        mMapAdapter = new MapAdapter(mMapList);
-        mMapRecyclerView.setAdapter(mMapAdapter);
-        mMapRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-    }
 
-    private void initGoogleMap(Bundle savedInstanceState){
-        Bundle mapViewBundle = null;
-        if (savedInstanceState != null) {
-            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
-        }
-
-        mMapView.onCreate(mapViewBundle);
-
-        mMapView.getMapAsync(this);
-
-    }
-
-     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
