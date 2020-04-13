@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.discgolfapp">
+package="com.example.discgolfapp">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -15,31 +14,33 @@
         android:roundIcon="@mipmap/ic_launch_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+            <activity android:name=".ScorecardActivity"></activity>
+            <activity android:name=".RulesActivity" />
+            <activity android:name=".MeasureThrowActivity" />
+            <activity android:name=".TutorialsActivity" />
+            <activity android:name=".MoreActivity" />
+            <activity android:name=".ProfileActivity" />
+            <activity android:name=".FindCourseActivity" />
+            <activity android:name=".EnterCourseActivity" />
+            <activity android:name=".MyBagActivity" />
+            <activity
+                android:name=".CoursesActivity"
+                android:exported="true" />
+            <activity android:name=".GamesActivity" />
+            <activity android:name=".LoginActivity" />
+            <activity android:name=".RegisterActivity" />
 
-        <activity android:name=".RulesActivity"></activity>
-        <activity android:name=".MeasureThrowActivity" />
-        <activity android:name=".TutorialsActivity" />
-        <activity android:name=".MoreActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".FindCourseActivity" />
-        <activity android:name=".EnterCourseActivity" />
-        <activity android:name=".MyBagActivity" />
-        <activity android:name=".CoursesActivity"
-            android:exported="true"/>
-        <activity android:name=".GamesActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyATft7zrL68bMv5mFBK_aa73Zzfk4L1XtA"
-        />
-        <activity android:name=".WelcomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyATft7zrL68bMv5mFBK_aa73Zzfk4L1XtA" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <activity android:name=".WelcomeActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
     </application>
 
 </manifest>
