@@ -152,6 +152,7 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
                             Map<String, Object> data = new HashMap<>();
                             data.put("throws", ids);
                             userDoc.set(data, SetOptions.merge());
+                            Toast.makeText(getApplicationContext(), "Throw successfully saved!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
