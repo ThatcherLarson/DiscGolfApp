@@ -142,9 +142,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 ArrayList<String> favIds = (ArrayList<String>) task.getResult().get("fav_courses");
-                if (favIds != null) {
-                    loadCourses(firestoreCallBack, favIds);
-                }
+                loadCourses(firestoreCallBack, favIds);
             }
         });
 
@@ -169,7 +167,11 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                                     ArrayList<Integer> yards = (ArrayList<Integer>) dfCourse.get("Yards");
                                     DiscMap newCourse = new DiscMap(documentId, title, description, location, pars, yards);
                                     newCourse.setMilesAway(currentLongitude, currentLatitude);
-                                    newCourse.setFavorite(ids.contains(documentId));
+                                    if (ids != null) {
+                                        if (ids.size() > 0) {
+                                            newCourse.setFavorite(ids.contains(documentId));
+                                        }
+                                    }
                                     mMapTempList.add(newCourse);
                                 }
                             }

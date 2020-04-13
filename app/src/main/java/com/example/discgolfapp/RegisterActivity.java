@@ -155,7 +155,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), FindCourseActivity.class);
                     startActivity(intent);
                 } else {
                     String message = task.getException().getMessage();
