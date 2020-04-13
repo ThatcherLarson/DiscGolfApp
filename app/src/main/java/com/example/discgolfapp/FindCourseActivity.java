@@ -308,9 +308,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
         //respond to menu item selection
         //respond to menu item selection
         switch (item.getItemId()) {
-            case R.id.games:
-                startActivity(new Intent(this, GamesActivity.class));
-                return true;
             case R.id.find:
                 startActivity(new Intent(this, FindCourseActivity.class));
                 return true;

@@ -14,6 +14,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,6 +88,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseUser user = auth.getCurrentUser();
 
         updateUi(user);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.nav_menu, menu);
+        return true;
     }
 
     private void updateUi(FirebaseUser user) {
@@ -303,6 +312,26 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //respond to menu item selection
+        //respond to menu item selection
+        switch (item.getItemId()) {
+            case R.id.find:
+                startActivity(new Intent(this, FindCourseActivity.class));
+                return true;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileActivity.class));
+                return true;
+            case R.id.more:
+                startActivity(new Intent(this, MoreActivity.class));
+                return true;
+            case R.id.bag:
+                startActivity(new Intent(this, MyBagActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
