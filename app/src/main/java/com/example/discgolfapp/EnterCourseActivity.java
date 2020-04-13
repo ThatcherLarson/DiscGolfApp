@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,10 +27,15 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import adapters.ParAdapter;
 import controllers.CoursesController;
@@ -209,6 +216,29 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         String courseTitleData = courseTitle.toString();
         String courseDescriptionData = courseDescription.toString();
         Matrix courseImageData = courseImage.getImageMatrix();
+
+        // Create a new course object with information
+        Map<String, Object> course = new HashMap<>();
+        course.put("Description", courseDescriptionData);
+        course.put("Location", "geopoint");
+        course.put("Pars", pars);
+        course.put("Title", courseTitleData);
+        course.put("Yards", yards);
+
+        db.collection("courses")
+                .add(course)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("NewCourseTest", "Course added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("NewCourseTest", "Error adding course", e);
+                    }
+                });
 
     }
 
