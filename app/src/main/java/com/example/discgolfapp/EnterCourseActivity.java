@@ -105,6 +105,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 save_course();
