@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -22,6 +26,12 @@ public class MyBagActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_bag);
 
         initImageBitmaps();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.nav_menu, menu);
+        return true;
     }
 
     private void initImageBitmaps() {
@@ -56,6 +66,26 @@ public class MyBagActivity extends AppCompatActivity {
 
     public void addDisc(View view) {
 
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //respond to menu item selection
+        //respond to menu item selection
+        switch (item.getItemId()) {
+            case R.id.find:
+                startActivity(new Intent(this, FindCourseActivity.class));
+                return true;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileActivity.class));
+                return true;
+            case R.id.more:
+                startActivity(new Intent(this, MoreActivity.class));
+                return true;
+            case R.id.bag:
+                startActivity(new Intent(this, MyBagActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
