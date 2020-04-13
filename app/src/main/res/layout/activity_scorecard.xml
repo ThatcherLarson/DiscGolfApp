@@ -1,1695 +1,1935 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteY="707dp">
-
-            <TableRow>
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Player" />
-
-                <EditText
-                    android:id="@+id/editText1"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText2"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText3"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 1" />
-
-                <EditText
-                    android:id="@+id/editText4"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText6"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText7"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText8"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText9"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 2" />
-
-                <EditText
-                    android:id="@+id/editText10"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText11"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText12"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText13"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText14"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText15"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 3" />
-
-                <EditText
-                    android:id="@+id/editText16"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText17"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText18"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText19"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText20"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText21"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 4" />
-
-                <EditText
-                    android:id="@+id/editText22"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText23"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText24"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText25"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText26"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText27"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 5" />
-
-                <EditText
-                    android:id="@+id/editText28"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText29"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText30"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText31"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText32"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText33"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 6" />
-
-                <EditText
-                    android:id="@+id/editText34"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText35"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText36"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText37"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText38"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText39"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Hole 7" />
-
-                <EditText
-                    android:id="@+id/editText40"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText41"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText42"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText43"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText44"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText45"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 8" />
-
-                <EditText
-                    android:id="@+id/editText46"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText47"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText48"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 9" />
-
-                <EditText
-                    android:id="@+id/editText49"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText50"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText51"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="43dp"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText52"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText53"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText54"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 10" />
-
-                <EditText
-                    android:id="@+id/editText55"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText56"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText57"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText58"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText59"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText60"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 11" />
-
-                <EditText
-                    android:id="@+id/editText61"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText62"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText63"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 11" />
-
-                <EditText
-                    android:id="@+id/editText64"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText65"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText66"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 12" />
-
-                <EditText
-                    android:id="@+id/editText67"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText68"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText69"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView26"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText70"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText71"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText72"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView27"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 13" />
-
-                <EditText
-                    android:id="@+id/editText73"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText74"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText75"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView28"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText76"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText77"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText78"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView29"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText79"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText80"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText81"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView30"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 14" />
-
-                <EditText
-                    android:id="@+id/editText82"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText83"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText84"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView31"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText85"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText86"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText87"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView32"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 15" />
-
-                <EditText
-                    android:id="@+id/editText88"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText89"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText90"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView33"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText91"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText92"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText93"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 16" />
-
-                <EditText
-                    android:id="@+id/editText94"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText95"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText96"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView35"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText97"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText98"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText99"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView36"
-                    android:layout_width="38dp"
-                    android:layout_height="7dp"
-                    android:text="Hole 17" />
-
-                <EditText
-                    android:id="@+id/editText100"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText101"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText102"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView37"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText103"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText104"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText105"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView38"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hole 18" />
-
-                <EditText
-                    android:id="@+id/editText106"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText107"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText108"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView39"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par " />
-
-                <EditText
-                    android:id="@+id/editText109"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText110"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText111"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="#CCCCCC"
-                    android:ems="10"
-                    android:inputType="textPersonName">
-
-                    <requestFocus />
-                </EditText>
-            </TableRow>
-        </TableLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScorecardActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-        </LinearLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/names">
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="2"
+                        android:padding="3dip"
+                        android:text="TextView" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="3">
+                    </View>
+
+                    <TextView
+                        android:id="@+id/p1Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="4"
+                        android:text="TextView" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="5">
+                    </View>
+
+                    <TextView
+                        android:id="@+id/p2Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="6"
+                        android:text="TextView" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="7">
+                    </View>
+
+                    <TextView
+                        android:id="@+id/p3Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="5"
+                        android:text="TextView" />
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row1">
+
+                    <TextView
+                        android:id="@+id/hole1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole1" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole1p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole1p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole1p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole1p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row2">
+
+                    <TextView
+                        android:id="@+id/par1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par1in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row3">
+
+                    <TextView
+                        android:id="@+id/hole2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole2" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole2p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole2p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole2p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole2p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row4">
+
+                    <TextView
+                        android:id="@+id/par2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par2in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row5">
+
+                    <TextView
+                        android:id="@+id/hole3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole3" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole3p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole3p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole3p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole3p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row6">
+
+                    <TextView
+                        android:id="@+id/par3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par3in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row7">
+
+                    <TextView
+                        android:id="@+id/hole4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole4" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole4p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole4p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole4p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole4p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row8">
+
+                    <TextView
+                        android:id="@+id/par4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par4in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row9">
+
+                    <TextView
+                        android:id="@+id/hole5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole5" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole5p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole5p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole5p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole5p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row10">
+
+                    <TextView
+                        android:id="@+id/par5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par5in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row11">
+
+                    <TextView
+                        android:id="@+id/hole6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole6" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole6p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole6p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole6p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole6p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row12">
+
+                    <TextView
+                        android:id="@+id/par6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par6in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row13">
+
+                    <TextView
+                        android:id="@+id/hole7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole7" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole7p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole7p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole7p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole7p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row14">
+
+                    <TextView
+                        android:id="@+id/par7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par7in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row15">
+
+                    <TextView
+                        android:id="@+id/hole8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole8" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole8p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole8p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole8p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole8p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row16">
+
+                    <TextView
+                        android:id="@+id/par8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par8in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row17">
+
+                    <TextView
+                        android:id="@+id/hole9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole9" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole9p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole9p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole9p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole9p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row18">
+
+                    <TextView
+                        android:id="@+id/par9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par9in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row19">
+
+                    <TextView
+                        android:id="@+id/hole10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole10" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole10p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole10p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole10p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole10p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row20">
+
+                    <TextView
+                        android:id="@+id/par10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par10in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row21">
+
+                    <TextView
+                        android:id="@+id/hole11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole11" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole11p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole11p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole11p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole11p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row22">
+
+                    <TextView
+                        android:id="@+id/par11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par11in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row23">
+
+                    <TextView
+                        android:id="@+id/hole12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole12" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole12p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole12p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole12p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole12p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row24">
+
+                    <TextView
+                        android:id="@+id/par12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par12in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row25">
+
+                    <TextView
+                        android:id="@+id/hole13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole13" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole13p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole13p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole13p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole13p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row26">
+
+                    <TextView
+                        android:id="@+id/par13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par13in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row27">
+
+                    <TextView
+                        android:id="@+id/hole14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole14" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole14p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole14p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole14p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole14p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row28">
+
+                    <TextView
+                        android:id="@+id/par14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par14in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row29">
+
+                    <TextView
+                        android:id="@+id/hole15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole15" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole15p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole15p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole15p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole15p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row30">
+
+                    <TextView
+                        android:id="@+id/par15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par15in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row31">
+
+                    <TextView
+                        android:id="@+id/hole16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole16" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole16p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole16p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole16p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole16p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row32">
+
+                    <TextView
+                        android:id="@+id/par16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par16in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row33">
+
+                    <TextView
+                        android:id="@+id/hole17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole17" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole17p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole17p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole17p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole17p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row34">
+
+                    <TextView
+                        android:id="@+id/par17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par17in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row35">
+
+                    <TextView
+                        android:id="@+id/hole18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/hole18" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole18p1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole18p2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole18p3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/hole18p4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/row36">
+
+                    <TextView
+                        android:id="@+id/par18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:layout_column="0"
+                        android:text="@string/par" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090"
+                        android:layout_column="1">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/par18in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <View
+                        android:layout_width="2sp"
+                        android:background="#FF909090">
+                    </View>
+
+                </TableRow>
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"></View>
+
+            </TableLayout>
+        </HorizontalScrollView>
     </ScrollView>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScorecardActivity">
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+-->
