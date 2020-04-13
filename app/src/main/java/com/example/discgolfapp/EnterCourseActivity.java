@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -27,19 +29,26 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import adapters.ParAdapter;
 import controllers.CoursesController;
 import models.CoursesModel;
+import models.DiscMap;
 
 import static util.Constants.MAPVIEW_BUNDLE_KEY;
 
@@ -55,7 +64,9 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     private RecyclerView parList;
     private NumberPicker parNumPick;
     private ParAdapter myAdapter;
+    public ArrayList<DiscMap> mMapList = new ArrayList<>();
 
+    String TAG = "EnterCourseActivity";
     private ArrayList<String> pars;
     private ArrayList<String> yards;
 
@@ -78,6 +89,20 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         }
         mMapView = (MapView) findViewById(R.id.map_new_game);
         mMapView.onCreate(mapViewBundle);
+
+        loadDataWithMiles(new EnterCourseActivity.FirestoreCallBack() {
+            @Override
+            public void onCallback(ArrayList<DiscMap> list) {
+                mMapList = list;
+                for (DiscMap course : mMapList) {
+                    MarkerOptions marker = new MarkerOptions();
+                    marker.position(new LatLng(course.getLatitude(), course.getLongitude()));
+                    marker.title(course.getTitle());
+                    marker.snippet(course.getDescription());
+                    googleMap.addMarker(marker);
+                }
+            }
+        });
 
         mMapView.getMapAsync(this);
 
@@ -278,6 +303,74 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
 
     }
 
+
+
+    public static boolean isInteger(String s) {
+        return isInteger(s,10);
+    }
+
+    public static boolean isInteger(String s, int radix) {
+        if(s.isEmpty()) return false;
+        for(int i = 0; i < s.length(); i++) {
+            if(i == 0 && s.charAt(i) == '-') {
+                if(s.length() == 1) return false;
+                else continue;
+            }
+            if(Character.digit(s.charAt(i),radix) < 0) return false;
+        }
+        return true;
+    }
+
+    private void loadDataWithMiles(final EnterCourseActivity.FirestoreCallBack firestoreCallBack){
+        db.collection("users").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                ArrayList<String> favIds = (ArrayList<String>) task.getResult().get("fav_courses");
+                loadCourses(firestoreCallBack, favIds);
+            }
+        });
+
+    }
+
+    private interface FirestoreCallBack{
+        void onCallback(ArrayList<DiscMap> list);
+    }
+
+
+    private void loadCourses(final EnterCourseActivity.FirestoreCallBack callback, final ArrayList<String> ids) {
+        db.collection("courses").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<DiscMap> mMapTempList = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+                            for (DocumentSnapshot dfCourse : myListOfDocuments) {
+                                String documentId = dfCourse.getId();
+                                if (isInteger(documentId) && documentId.length() == 10) {
+                                    System.out.println(documentId);
+                                    String description = dfCourse.getString("Description");
+                                    GeoPoint location = dfCourse.getGeoPoint("Location");
+                                    ArrayList<Integer> pars = (ArrayList<Integer>) dfCourse.get("Pars");
+                                    String title = dfCourse.getString("Title");
+                                    ArrayList<Integer> yards = (ArrayList<Integer>) dfCourse.get("Yards");
+                                    DiscMap newCourse = new DiscMap(documentId, title, description, location, pars, yards);
+                                    if (ids != null) {
+                                        if (ids.size() > 0) {
+                                            newCourse.setFavorite(ids.contains(documentId));
+                                        }
+                                    }
+                                    mMapTempList.add(newCourse);
+                                }
+                            }
+                            callback.onCallback(mMapTempList);
+                        }
+                        else{
+                            Log.d(TAG,"Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {

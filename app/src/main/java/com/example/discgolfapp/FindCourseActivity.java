@@ -32,7 +32,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -92,12 +91,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                     marker.title(course.getTitle());
                     marker.snippet(course.getDescription());
                     googleMap.addMarker(marker);
-            /*
-            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
-            */
                 }
             }
         });
@@ -191,38 +185,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
 
 
 
-    public void loadData() {
-
-        final List<String> list = new ArrayList<>();
-        db.collection("root_collection").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        list.add(document.getId());
-                    }
-                } else {
-
-                }
-            }
-        });
-        for (String documentId: list){
-            if (isInteger(documentId) && documentId.length()==10){
-                DocumentSnapshot dfCourse = db.collection("courses").document(documentId).get().getResult();
-                String description = dfCourse.getString("Description");
-                GeoPoint location = dfCourse.getGeoPoint("Location");
-                ArrayList<Integer> pars = (ArrayList<Integer>) dfCourse.get("Pars");
-                String title = dfCourse.getString("Title");
-                ArrayList<Integer> yards = (ArrayList<Integer>) dfCourse.get("Yards");
-                DiscMap newCourse = new DiscMap(documentId, title, description, location, pars, yards);
-                mMapList.add(newCourse);
-            }
-        }
-
-
-    }
-
     public static boolean isInteger(String s) {
         return isInteger(s,10);
     }
@@ -256,6 +218,22 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onResume() {
         super.onResume();
+        loadDataWithMiles(new FirestoreCallBack() {
+            @Override
+            public void onCallback(ArrayList<DiscMap> list) {
+                mMapList = list;
+                myAdapter.update(mMapList);
+                myAdapter.notifyDataSetChanged();
+                for (DiscMap course : mMapList) {
+                    MarkerOptions marker = new MarkerOptions();
+                    marker.position(new LatLng(course.getLatitude(), course.getLongitude()));
+                    marker.title(course.getTitle());
+                    marker.snippet(course.getDescription());
+                    googleMap.addMarker(marker);
+
+                }
+            }
+        });
         mMapView.onResume();
 
 
