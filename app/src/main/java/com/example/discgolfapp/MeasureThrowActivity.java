@@ -100,7 +100,7 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
                     gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(THROW.getCenter(), 19));
                 }
                 float distanceInMeters = loc1.distanceTo(loc2);
-                distTextView.setText(distanceInMeters + " meters");
+                distTextView.setText("Distance: " + distanceInMeters + " meters");
             }
         });
 
@@ -108,6 +108,10 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
             @Override
             public void onClick(View view) {
                 gmap.clear();
+                initLatitude = 0;
+                initLongitude = 0;
+                endLatitude = 0;
+                endLongitude = 0;
             }
         });
     }
@@ -129,6 +133,7 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
                                     latTextView.setText("Latitude: " + location.getLatitude()+"");
                                     lonTextView.setText("Longitude: " + location.getLongitude()+"");
                                     gmap.setMinZoomPreference(19);
+                                    gmap.setMapType(gmap.MAP_TYPE_HYBRID);
                                     LatLng init = new LatLng(initLatitude, initLongitude);
                                     gmap.addMarker(new MarkerOptions().position(init));
                                     gmap.moveCamera(CameraUpdateFactory.newLatLng(init));
@@ -163,6 +168,7 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
                                     latTextView.setText("Latitude: " + location.getLatitude()+"");
                                     lonTextView.setText("Longitude: " + location.getLongitude()+"");
                                     gmap.setMinZoomPreference(19);
+                                    gmap.setMapType(gmap.MAP_TYPE_HYBRID);
                                     LatLng end = new LatLng(initLatitude, initLongitude);
                                     gmap.addMarker(new MarkerOptions().position(end));
                                     gmap.moveCamera(CameraUpdateFactory.newLatLng(end));
@@ -291,6 +297,7 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
+        gmap.setMapType(gmap.MAP_TYPE_HYBRID);
         gmap.setMinZoomPreference(12);
         LatLng start = new LatLng(43.073051, -89.401230);
         gmap.moveCamera(CameraUpdateFactory.newLatLng(start));
