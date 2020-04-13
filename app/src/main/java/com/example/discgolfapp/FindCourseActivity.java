@@ -1,10 +1,8 @@
 package com.example.discgolfapp;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -261,8 +259,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                 ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         googleMap.setMyLocationEnabled(true);
     }
 
