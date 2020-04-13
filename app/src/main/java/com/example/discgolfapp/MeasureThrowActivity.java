@@ -33,8 +33,26 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import controllers.CoursesController;
+import controllers.MeasureThrowController;
+import models.CoursesModel;
+import models.MeasureThrowModel;
 
 public class MeasureThrowActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private MeasureThrowController controller;
+    private MeasureThrowModel model;
+    private FirebaseAuth auth;
+
     private MapView mapView;
     private GoogleMap gmap;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
@@ -48,6 +66,7 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
     double initLongitude = 0;
     double endLatitude = 0;
     double endLongitude = 0;
+    float distanceInMeters = 0;
     Location loc1 = new Location("");
     Location loc2 = new Location("");
 
@@ -60,6 +79,7 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
         Button endBtn = (Button) findViewById(R.id.endBtn);
         Button clearBtn = (Button) findViewById(R.id.clearBtn);
         Button calcDistance = (Button) findViewById(R.id.calcDistance);
+        Button saveThrowBtn = (Button) findViewById(R.id.saveThrowBtn);
         latTextView = findViewById(R.id.latTextView);
         lonTextView = findViewById(R.id.lonTextView);
         distTextView = findViewById(R.id.distTextView);
@@ -99,7 +119,7 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
                     LatLngBounds THROW = new LatLngBounds(new LatLng(initLatitude, initLongitude), new LatLng(endLatitude, endLongitude));
                     gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(THROW.getCenter(), 19));
                 }
-                float distanceInMeters = loc1.distanceTo(loc2);
+                distanceInMeters = loc1.distanceTo(loc2);
                 distTextView.setText("Distance: " + distanceInMeters + " meters");
             }
         });
@@ -112,6 +132,29 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
                 initLongitude = 0;
                 endLatitude = 0;
                 endLongitude = 0;
+            }
+        });
+
+        saveThrowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                final DocumentReference userDoc = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<String> ids = (ArrayList<String>) task.getResult().get("throws");
+                            if (ids == null) {
+                                ids = new ArrayList<String>();
+                            }
+                            ids.add(distanceInMeters + " meters");
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("throws", ids);
+                            userDoc.set(data, SetOptions.merge());
+                        }
+                    }
+                });
             }
         });
     }

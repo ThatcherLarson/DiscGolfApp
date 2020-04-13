@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,7 +104,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
                                     }
                                     Map<String, Object> data = new HashMap<>();
                                     data.put("fav_courses", ids);
-                                    userDoc.set(data);
+                                    userDoc.set(data, SetOptions.merge());
                                 }
                             }
                         });

@@ -92,10 +92,23 @@
         android:id="@+id/clearBtn"
         android:layout_width="109dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="36dp"
         android:background="#AFAFAF"
         android:text="Clear Map"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/saveThrowBtn"
+        android:layout_width="109dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginLeft="68dp"
+        android:layout_marginBottom="36dp"
+        android:background="#AFAFAF"
+        android:text="Save Throw"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/clearBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
