@@ -8,14 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.discgolfapp.R;
-
 import java.util.ArrayList;
-
 
 public class ParAdapter extends RecyclerView.Adapter<ParAdapter.ViewHolder>{
     private ArrayList<String> pars = new ArrayList<>();
@@ -42,14 +38,12 @@ public class ParAdapter extends RecyclerView.Adapter<ParAdapter.ViewHolder>{
                 yards.add("");
             }
         }
-
         if (newVal<oldVal) {
             for (int i = 0; i < oldVal-newVal; i++) {
                 pars.remove(pars.size()-1);
                 yards.remove(pars.size()-1);
             }
         }
-
     }
 
     @NonNull
@@ -66,12 +60,10 @@ public class ParAdapter extends RecyclerView.Adapter<ParAdapter.ViewHolder>{
         ((ViewHolder)holder).num.setText(Integer.toString(position+1));
         ((ViewHolder)holder).par.setText(pars.get(position));
         ((ViewHolder)holder).yard.setText(yards.get(position));
-
         ((ViewHolder)holder).par.setTag(position);
         ((ViewHolder)holder).yard.setTag(position);
 
         disableInput((EditText) ((ViewHolder)holder).num);
-
     }
 
     @Override
@@ -92,8 +84,6 @@ public class ParAdapter extends RecyclerView.Adapter<ParAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-
-
         private EditText num;
         private EditText par;
         private EditText yard;
@@ -121,7 +111,5 @@ public class ParAdapter extends RecyclerView.Adapter<ParAdapter.ViewHolder>{
                 }
             });
         }
-
-
     }
 }

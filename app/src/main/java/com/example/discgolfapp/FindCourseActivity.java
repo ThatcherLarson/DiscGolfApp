@@ -54,7 +54,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     private Button createMap;
     private Button btnNewGame;
     GoogleMap googleMap;
-    //vars
     public ArrayList<DiscMap> mMapList = new ArrayList<>();
     private MapAdapter myAdapter;
     private RecyclerView mapList;
@@ -74,7 +73,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
         }
-        mMapView = (MapView) findViewById(R.id.mapView);
+        mMapView = findViewById(R.id.mapView);
         mMapView.onCreate(mapViewBundle);
 
         loadDataWithMiles(new FirestoreCallBack() {
@@ -117,12 +116,8 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                 startActivity(new Intent(FindCourseActivity.this, GamesActivity.class));
             }
         });
-
-
-
-        //MapController myMapController = myMapView.getController();
-
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.nav_menu, menu);
@@ -137,7 +132,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                 loadCourses(firestoreCallBack, favIds);
             }
         });
-
     }
 
     private void loadCourses(final FirestoreCallBack callback, final ArrayList<String> ids) {
@@ -175,12 +169,9 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                 });
     }
 
-
     private interface FirestoreCallBack{
         void onCallback(ArrayList<DiscMap> list);
     }
-
-
 
     public static boolean isInteger(String s) {
         return isInteger(s,10);
@@ -198,7 +189,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
         return true;
     }
 
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -208,7 +198,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
             mapViewBundle = new Bundle();
             outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle);
         }
-
         mMapView.onSaveInstanceState(mapViewBundle);
     }
 
@@ -232,8 +221,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
             }
         });
         mMapView.onResume();
-
-
     }
 
     @Override
@@ -252,11 +239,8 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     public void onMapReady(GoogleMap map) {
         googleMap = map;
 
-
         final LatLng Madison = new LatLng(43.073929, -89.385239);
-
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(Madison, 4.0f));
-
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -284,8 +268,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        //respond to menu item selection
-        //respond to menu item selection
         switch (item.getItemId()) {
             case R.id.find:
                 startActivity(new Intent(this, FindCourseActivity.class));

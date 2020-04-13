@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,8 +67,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     private ArrayList<String> yards;
 
     FirebaseFirestore db;
-    //vars
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +81,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
         }
-        mMapView = (MapView) findViewById(R.id.map_new_game);
+        mMapView = findViewById(R.id.map_new_game);
         mMapView.onCreate(mapViewBundle);
 
         loadDataWithMiles(new EnterCourseActivity.FirestoreCallBack() {
@@ -110,7 +107,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
 
 
 
-        final NumberPicker np = (NumberPicker) parNumPick;
+        final NumberPicker np = parNumPick;
         np.setMaxValue(36);
         np.setMinValue(1);
         np.setValue(9);
@@ -133,13 +130,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
                 save_course();
         }
         });
-
-
-
-
-
-
-        //MapController myMapController = myMapView.getController();
 
     }
 
@@ -189,12 +179,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
             return;
         }
         map.setMyLocationEnabled(true);
-
-
-
-
     }
-
 
     @Override
     public void onPause() {
@@ -215,11 +200,9 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         mMapView.onLowMemory();
     }
 
-
     //TODO check if pars and yards are numbers
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void save_course(){
-
 
         final int firstVisibleItemPosition = 0;
         final int lastVisibleItemPosition = parNumPick.getValue();
@@ -245,7 +228,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
             }
         }
 
-
         int mWidth= mMapView.getResources().getDisplayMetrics().widthPixels;
         int mHeight= mMapView.getResources().getDisplayMetrics().heightPixels;
 
@@ -256,7 +238,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
 
         String courseTitleData = ((TextView)findViewById(R.id.courseTitle)).getText().toString();
         String courseDescriptionData = ((TextView)findViewById(R.id.courseDescription)).getText().toString();
-        ImageView courseImage = (ImageView) findViewById(R.id.courseImage);
+        ImageView courseImage = findViewById(R.id.courseImage);
         Matrix courseImageData = courseImage.getImageMatrix();
 
         // Create a new course object with information
@@ -267,17 +249,13 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         course.put("Title", courseTitleData);
         course.put("Yards", yards);
 
-
         Instant.now().toEpochMilli(); //Long = 1450879900184
         long secondsSinceEpoch = Instant.now().getEpochSecond();
-
 
         DocumentReference courseData = db.collection("courses").document(String.valueOf(secondsSinceEpoch));
         courseData.set(course);
 
     }
-
-
 
     public static boolean isInteger(String s) {
         return isInteger(s,10);
@@ -303,13 +281,11 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
                 loadCourses(firestoreCallBack, favIds);
             }
         });
-
     }
 
     private interface FirestoreCallBack{
         void onCallback(ArrayList<DiscMap> list);
     }
-
 
     private void loadCourses(final EnterCourseActivity.FirestoreCallBack callback, final ArrayList<String> ids) {
         db.collection("courses").get()
@@ -348,11 +324,8 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
-
-       myAdapter.update(newVal,oldVal);
-       parList.requestLayout();
-        //parList.setAdapter(myAdapter);
-        //parList.setLayoutManager(new LinearLayoutManager(this));
+        myAdapter.update(newVal, oldVal);
+        parList.requestLayout();
     }
 
 
