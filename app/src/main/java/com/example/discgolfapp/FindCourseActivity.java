@@ -253,8 +253,12 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     public void onMapReady(GoogleMap map) {
         googleMap = map;
 
+
+        final LatLng Madison = new LatLng(43.073929, -89.385239);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(Madison, 4.0f));
+
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(5.0f));
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;

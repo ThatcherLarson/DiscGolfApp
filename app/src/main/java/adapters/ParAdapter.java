@@ -1,6 +1,8 @@
 package adapters;
 
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,7 @@ public class ParAdapter extends RecyclerView.Adapter<ParAdapter.ViewHolder>{
     public ArrayList<String> get_pars(){
         return pars;
     }
-    public ArrayList<String> getYards(){
+    public ArrayList<String> get_yards(){
         return yards;
     }
 
@@ -31,6 +33,7 @@ public class ParAdapter extends RecyclerView.Adapter<ParAdapter.ViewHolder>{
             pars.add("");
             yards.add("");
         }
+        notifyDataSetChanged();
     }
     public void update(int newVal,int oldVal){
         if (newVal>oldVal) {
@@ -62,7 +65,10 @@ public class ParAdapter extends RecyclerView.Adapter<ParAdapter.ViewHolder>{
 
         ((ViewHolder)holder).num.setText(Integer.toString(position+1));
         ((ViewHolder)holder).par.setText(pars.get(position));
-        ((ViewHolder)holder).yards.setText(yards.get(position));
+        ((ViewHolder)holder).yard.setText(yards.get(position));
+
+        ((ViewHolder)holder).par.setTag(position);
+        ((ViewHolder)holder).yard.setTag(position);
 
         disableInput((EditText) ((ViewHolder)holder).num);
 
@@ -86,16 +92,34 @@ public class ParAdapter extends RecyclerView.Adapter<ParAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        EditText num;
-        EditText par;
-        EditText yards;
 
 
+        private EditText num;
+        private EditText par;
+        private EditText yard;
         public ViewHolder(View itemView) {
             super(itemView);
             num = itemView.findViewById(R.id.parNum);
             par = itemView.findViewById(R.id.parVal);
-            yards = itemView.findViewById(R.id.parYards);
+            yard = itemView.findViewById(R.id.parYards);
+            par.addTextChangedListener(new TextWatcher() {
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+                public void afterTextChanged(Editable editable) {}
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    if(par.getTag()!=null){
+                        pars.set((int)par.getTag(),charSequence.toString());
+                    }
+                }
+            });
+            yard.addTextChangedListener(new TextWatcher() {
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+                public void afterTextChanged(Editable editable) {}
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    if(yard.getTag()!=null){
+                        yards.set((int)yard.getTag(),charSequence.toString());
+                    }
+                }
+            });
         }
 
 

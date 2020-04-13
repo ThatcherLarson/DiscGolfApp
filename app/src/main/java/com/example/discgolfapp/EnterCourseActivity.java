@@ -144,27 +144,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     }
 
 
-    /*
-    private void initUserListRecyclerView() {
-        mMapAdapter = new MapAdapter(mMapList);
-        mMapRecyclerView.setAdapter(mMapAdapter);
-        mMapRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-    }
-
-    private void initGoogleMap(Bundle savedInstanceState){
-        Bundle mapViewBundle = null;
-        if (savedInstanceState != null) {
-            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
-        }
-
-        mMapView.onCreate(mapViewBundle);
-
-        mMapView.getMapAsync(this);
-
-    }
-
-     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -240,14 +219,35 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     //TODO check if pars and yards are numbers
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void save_course(){
-        ArrayList<Integer> pars = new ArrayList<>();
-        ArrayList<Double> yards = new ArrayList<>();
+
 
         final int firstVisibleItemPosition = 0;
         final int lastVisibleItemPosition = parNumPick.getValue();
         parList.requestLayout();
+        ArrayList<Integer> pars = new ArrayList<>();
+        ArrayList<Double> yards = new ArrayList<>();
+
+        for (String yard: myAdapter.get_yards()){
+            if(yard.equals("")){
+                yards.add(0.0);
+            }
+            else {
+                yards.add(Double.parseDouble(yard));
+            }
+        }
+
+        for (String par: myAdapter.get_pars()){
+            if(par.equals("")){
+                pars.add(0);
+            }
+            else {
+                pars.add(Integer.parseInt(par));
+            }
+        }
+        /*
         for (int i = firstVisibleItemPosition; i < lastVisibleItemPosition; ++i) {
-            ParAdapter.ViewHolder holder = (ParAdapter.ViewHolder) parList.findViewHolderForLayoutPosition(i);
+            RecyclerView.ViewHolder holder = parList.findViewHolderForLayoutPosition(i);
+            System.out.println(i);
             if ((((TextView)holder.itemView.findViewById(R.id.parVal)).getText().toString()).equals("")){
                 pars.add(0);
             }
@@ -262,6 +262,8 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
             }
 
         }
+
+         */
 
 
         int mWidth= mMapView.getResources().getDisplayMetrics().widthPixels;
