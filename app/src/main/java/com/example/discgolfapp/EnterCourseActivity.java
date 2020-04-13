@@ -217,7 +217,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         final int lastVisibleItemPosition = parNumPick.getValue();
         parList.requestLayout();
         for (int i = firstVisibleItemPosition; i < lastVisibleItemPosition; ++i) {
-            System.out.println(i);
             ParAdapter.ViewHolder holder = (ParAdapter.ViewHolder) parList.findViewHolderForLayoutPosition(i);
             if ((((TextView)holder.itemView.findViewById(R.id.parVal)).getText().toString()).equals("")){
                 pars.add(0);
