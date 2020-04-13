@@ -1,9 +1,17 @@
 package com.example.discgolfapp;
 
+import android.content.Context;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,9 +35,14 @@ public class LoginTest {
     public void login() {
         final String email = "dbondi@wisc.edu";
         final String password = "pePPer123!";
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
         onView(withId(R.id.username)).perform(typeText(email), closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText(password), closeSoftKeyboard());
         onView(withId(R.id.login)).perform(click());
+
+
 
     }
 
