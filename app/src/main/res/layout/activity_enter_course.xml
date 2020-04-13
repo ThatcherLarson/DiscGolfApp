@@ -17,12 +17,25 @@
             android:layout_height="0dp"
             android:layout_weight="50"
             android:id="@+id/map_new_game_container">
-
-            <com.google.android.gms.maps.MapView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
+            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/map_new_game" />
+                tools:context="com.naveen.myfirstapp.MainActivity" >
+
+                <com.google.android.gms.maps.MapView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/map_new_game" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    app:srcCompat="@drawable/marker" />
+
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout

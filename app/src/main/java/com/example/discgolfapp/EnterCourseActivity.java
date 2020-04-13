@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
+import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -26,7 +27,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -49,7 +49,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     private FirebaseAuth auth;
     private double longitude;
     private double latitude;
-
+    private GoogleMap googleMap;
     private MapView mMapView;
     private Button saveBtn;
     private RecyclerView parList;
@@ -113,9 +113,14 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         });
 
 
+
+
+
+
         //MapController myMapController = myMapView.getController();
 
     }
+
 
     /*
     private void initUserListRecyclerView() {
@@ -170,11 +175,14 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     }
 
     @Override
-    public void onMapReady(GoogleMap map) {
+    public void onMapReady(final GoogleMap map) {
+        googleMap = map;
 
-        map.addMarker(new MarkerOptions().position(new LatLng(43.073929,-89.385239)).title("Marker"));
+        final LatLng Madison = new LatLng(43.073929, -89.385239);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(Madison, 4.0f));
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        map.animateCamera(CameraUpdateFactory.zoomTo( 5.0f ) );
+
         if(ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
             return;
@@ -187,12 +195,16 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         map.setMyLocationEnabled(true);
 
 
+
+
     }
+
 
     @Override
     public void onPause() {
         mMapView.onPause();
         super.onPause();
+
     }
 
     @Override
@@ -233,6 +245,16 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
             }
 
         }
+
+
+        int mWidth= mMapView.getResources().getDisplayMetrics().widthPixels;
+        int mHeight= mMapView.getResources().getDisplayMetrics().heightPixels;
+
+        Point x_y_points = new Point(mWidth, mHeight);
+        LatLng latLng = googleMap.getCameraPosition().target;//googleMap.getProjection().fromScreenLocation(x_y_points);
+        longitude = latLng.longitude;
+        latitude = latLng.latitude;
+
         String courseTitleData = ((TextView)findViewById(R.id.courseTitle)).getText().toString();
         String courseDescriptionData = ((TextView)findViewById(R.id.courseDescription)).getText().toString();
         ImageView courseImage = (ImageView) findViewById(R.id.courseImage);
@@ -241,7 +263,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         // Create a new course object with information
         Map<String, Object> course = new HashMap<>();
         course.put("Description", courseDescriptionData);
-        course.put("Location", new GeoPoint(longitude,latitude));
+        course.put("Location", new GeoPoint(latitude,longitude));
         course.put("Pars", pars);
         course.put("Title", courseTitleData);
         course.put("Yards", yards);
