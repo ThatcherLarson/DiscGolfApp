@@ -142,7 +142,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 ArrayList<String> favIds = (ArrayList<String>) task.getResult().get("fav_courses");
-                if (favIds != null || favIds.size() > 0) {
+                if (favIds != null) {
                     loadCourses(firestoreCallBack, favIds);
                 }
             }
