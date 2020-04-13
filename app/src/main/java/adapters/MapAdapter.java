@@ -11,15 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.discgolfapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import models.DiscMap;
 
 public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
 
     private ArrayList<DiscMap> mMaps;
-
 
     public MapAdapter(ArrayList<DiscMap> discMaps) {
         this.mMaps = discMaps;
@@ -65,13 +72,54 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvCourseNameMapList);
-            //image = itemView.findViewById(R.id.ivCourseImageMap);
             description = itemView.findViewById(R.id.tvCourseDescriptionMapList);
             numPars = itemView.findViewById(R.id.tvParsMapList);
             milesAway = itemView.findViewById(R.id.tvMilesAway);
             favorite = itemView.findViewById(R.id.tvFavorite);
+
+            favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (v.getId() == R.id.tvFavorite) {
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        final DocumentReference userDoc = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    ArrayList<String> ids = (ArrayList<String>) task.getResult().get("fav_courses");
+                                    if (ids == null) {
+                                        ids = new ArrayList<String>();
+                                    }
+                                    String id = getCourseId(title.getText().toString());
+                                    if (favorite.isChecked()) {
+                                        if (id != null) {
+                                            ids.add(id);
+                                        }
+                                    } else {
+                                        if (id != null) {
+                                            ids.remove(id);
+                                        }
+                                    }
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put("fav_courses", ids);
+                                    userDoc.set(data);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
         }
 
+        public String getCourseId(String name) {
+            for (DiscMap course: mMaps) {
+                if (course.getTitle().equals(name)) {
+                    return course.getId();
+                }
+            }
+            return null;
+        }
 
     }
 

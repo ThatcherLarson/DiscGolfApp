@@ -138,6 +138,19 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     private void loadDataWithMiles(final FirestoreCallBack firestoreCallBack){
+        db.collection("users").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                ArrayList<String> favIds = (ArrayList<String>) task.getResult().get("fav_courses");
+                if (favIds != null || favIds.size() > 0) {
+                    loadCourses(firestoreCallBack, favIds);
+                }
+            }
+        });
+
+    }
+
+    private void loadCourses(final FirestoreCallBack callback, final ArrayList<String> ids) {
         db.collection("courses").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -154,19 +167,19 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                                     ArrayList<Integer> pars = (ArrayList<Integer>) dfCourse.get("Pars");
                                     String title = dfCourse.getString("Title");
                                     ArrayList<Integer> yards = (ArrayList<Integer>) dfCourse.get("Yards");
-                                    DiscMap newCourse = new DiscMap(title, description, location, pars, yards);
+                                    DiscMap newCourse = new DiscMap(documentId, title, description, location, pars, yards);
                                     newCourse.setMilesAway(currentLongitude, currentLatitude);
+                                    newCourse.setFavorite(ids.contains(documentId));
                                     mMapTempList.add(newCourse);
                                 }
                             }
-                            firestoreCallBack.onCallback(mMapTempList);
+                            callback.onCallback(mMapTempList);
                         }
                         else{
                             Log.d(TAG,"Error getting documents: ", task.getException());
                         }
                     }
                 });
-
     }
 
 
@@ -200,7 +213,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                 ArrayList<Integer> pars = (ArrayList<Integer>) dfCourse.get("Pars");
                 String title = dfCourse.getString("Title");
                 ArrayList<Integer> yards = (ArrayList<Integer>) dfCourse.get("Yards");
-                DiscMap newCourse = new DiscMap(title, description, location, pars, yards);
+                DiscMap newCourse = new DiscMap(documentId, title, description, location, pars, yards);
                 mMapList.add(newCourse);
             }
         }

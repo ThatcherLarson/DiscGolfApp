@@ -14,6 +14,7 @@ public class DiscMap implements Parcelable {
     private String title;
     private String description;
     private Drawable image;
+    private String id;
     private double longitude;
     private double latitude;
     private ArrayList<Integer> pars;
@@ -28,6 +29,10 @@ public class DiscMap implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getDescription() {
@@ -103,7 +108,8 @@ public class DiscMap implements Parcelable {
         this.yards = yards;
         this.image = image;
     }
-    public DiscMap(String title, String description, GeoPoint geoPoint, ArrayList<Integer> pars, ArrayList<Integer> yards){
+    public DiscMap(String id, String title, String description, GeoPoint geoPoint, ArrayList<Integer> pars, ArrayList<Integer> yards){
+        this.id = id;
         this.title = title;
         this.description = description;
         longitude = geoPoint.getLongitude();
