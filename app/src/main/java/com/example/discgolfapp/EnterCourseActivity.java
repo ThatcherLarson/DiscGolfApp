@@ -6,8 +6,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Matrix;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,12 +27,12 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +47,8 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     private CoursesController controller;
     private CoursesModel model;
     private FirebaseAuth auth;
+    private double longitude;
+    private double latitude;
 
     private MapView mMapView;
     private Button saveBtn;
@@ -103,6 +105,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 save_course();
@@ -205,40 +208,51 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     }
 
 
-    //TODO save course
+    //TODO check if pars and yards are numbers
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void save_course(){
+        ArrayList<Integer> pars = new ArrayList<>();
+        ArrayList<Double> yards = new ArrayList<>();
 
-        ArrayList<String> pars = myAdapter.get_pars();
-        ArrayList<String> yards = myAdapter.getYards();
-        TextView courseTitle = (TextView)findViewById(R.id.courseTitle);
-        TextView courseDescription = (TextView)findViewById(R.id.courseDescription);
+        final int firstVisibleItemPosition = 0;
+        final int lastVisibleItemPosition = parNumPick.getValue();
+        parList.requestLayout();
+        for (int i = firstVisibleItemPosition; i < lastVisibleItemPosition; ++i) {
+            ParAdapter.ViewHolder holder = (ParAdapter.ViewHolder) parList.findViewHolderForLayoutPosition(i);
+            if ((((TextView)holder.itemView.findViewById(R.id.parVal)).getText().toString()).equals("")){
+                pars.add(0);
+            }
+            else {
+                pars.add(Integer.valueOf((((TextView) holder.itemView.findViewById(R.id.parVal)).getText().toString())));
+            }
+            if ((((TextView)holder.itemView.findViewById(R.id.parYards)).getText().toString()).equals("")){
+                yards.add(0.0);
+            }
+            else {
+                yards.add(Double.valueOf((((TextView) holder.itemView.findViewById(R.id.parYards)).getText().toString())));
+            }
+
+        }
+        String courseTitleData = ((TextView)findViewById(R.id.courseTitle)).getText().toString();
+        String courseDescriptionData = ((TextView)findViewById(R.id.courseDescription)).getText().toString();
         ImageView courseImage = (ImageView) findViewById(R.id.courseImage);
-        String courseTitleData = courseTitle.toString();
-        String courseDescriptionData = courseDescription.toString();
         Matrix courseImageData = courseImage.getImageMatrix();
 
         // Create a new course object with information
         Map<String, Object> course = new HashMap<>();
         course.put("Description", courseDescriptionData);
-        course.put("Location", "geopoint");
+        course.put("Location", new GeoPoint(longitude,latitude));
         course.put("Pars", pars);
         course.put("Title", courseTitleData);
         course.put("Yards", yards);
 
-        db.collection("courses")
-                .add(course)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("NewCourseTest", "Course added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("NewCourseTest", "Error adding course", e);
-                    }
-                });
+
+        Instant.now().toEpochMilli(); //Long = 1450879900184
+        long secondsSinceEpoch = Instant.now().getEpochSecond();
+
+
+        DocumentReference courseData = db.collection("courses").document(String.valueOf(secondsSinceEpoch));
+        courseData.set(course);
 
     }
 
