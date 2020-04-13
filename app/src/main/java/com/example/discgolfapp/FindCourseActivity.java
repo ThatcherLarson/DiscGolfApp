@@ -151,7 +151,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                             for (DocumentSnapshot dfCourse : myListOfDocuments) {
                                 String documentId = dfCourse.getId();
                                 if (isInteger(documentId) && documentId.length() == 10) {
-                                    System.out.println(documentId);
                                     String description = dfCourse.getString("Description");
                                     GeoPoint location = dfCourse.getGeoPoint("Location");
                                     ArrayList<Integer> pars = (ArrayList<Integer>) dfCourse.get("Pars");

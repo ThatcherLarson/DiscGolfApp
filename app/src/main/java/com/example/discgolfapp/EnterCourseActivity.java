@@ -244,26 +244,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
                 pars.add(Integer.parseInt(par));
             }
         }
-        /*
-        for (int i = firstVisibleItemPosition; i < lastVisibleItemPosition; ++i) {
-            RecyclerView.ViewHolder holder = parList.findViewHolderForLayoutPosition(i);
-            System.out.println(i);
-            if ((((TextView)holder.itemView.findViewById(R.id.parVal)).getText().toString()).equals("")){
-                pars.add(0);
-            }
-            else {
-                pars.add(Integer.valueOf((((TextView) holder.itemView.findViewById(R.id.parVal)).getText().toString())));
-            }
-            if ((((TextView)holder.itemView.findViewById(R.id.parYards)).getText().toString()).equals("")){
-                yards.add(0.0);
-            }
-            else {
-                yards.add(Double.valueOf((((TextView) holder.itemView.findViewById(R.id.parYards)).getText().toString())));
-            }
-
-        }
-
-         */
 
 
         int mWidth= mMapView.getResources().getDisplayMetrics().widthPixels;
@@ -342,7 +322,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
                             for (DocumentSnapshot dfCourse : myListOfDocuments) {
                                 String documentId = dfCourse.getId();
                                 if (isInteger(documentId) && documentId.length() == 10) {
-                                    System.out.println(documentId);
                                     String description = dfCourse.getString("Description");
                                     GeoPoint location = dfCourse.getGeoPoint("Location");
                                     ArrayList<Integer> pars = (ArrayList<Integer>) dfCourse.get("Pars");
