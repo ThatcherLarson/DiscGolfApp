@@ -1,12 +1,9 @@
 package com.example.discgolfapp;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
 import android.graphics.Point;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,8 +67,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     private ArrayList<String> yards;
 
     FirebaseFirestore db;
-    //vars
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +81,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
         }
-        mMapView = (MapView) findViewById(R.id.map_new_game);
+        mMapView = findViewById(R.id.map_new_game);
         mMapView.onCreate(mapViewBundle);
 
         loadDataWithMiles(new EnterCourseActivity.FirestoreCallBack() {
@@ -113,7 +107,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
 
 
 
-        final NumberPicker np = (NumberPicker) parNumPick;
+        final NumberPicker np = parNumPick;
         np.setMaxValue(36);
         np.setMinValue(1);
         np.setValue(9);
@@ -137,37 +131,9 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         }
         });
 
-
-
-
-
-
-        //MapController myMapController = myMapView.getController();
-
     }
 
 
-    /*
-    private void initUserListRecyclerView() {
-        mMapAdapter = new MapAdapter(mMapList);
-        mMapRecyclerView.setAdapter(mMapAdapter);
-        mMapRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-    }
-
-    private void initGoogleMap(Bundle savedInstanceState){
-        Bundle mapViewBundle = null;
-        if (savedInstanceState != null) {
-            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
-        }
-
-        mMapView.onCreate(mapViewBundle);
-
-        mMapView.getMapAsync(this);
-
-    }
-
-     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -209,21 +175,11 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         if(ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-
         map.setMyLocationEnabled(true);
-
-
-
-
     }
-
 
     @Override
     public void onPause() {
@@ -244,33 +200,33 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         mMapView.onLowMemory();
     }
 
-
     //TODO check if pars and yards are numbers
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void save_course(){
-        ArrayList<Integer> pars = new ArrayList<>();
-        ArrayList<Double> yards = new ArrayList<>();
 
         final int firstVisibleItemPosition = 0;
         final int lastVisibleItemPosition = parNumPick.getValue();
         parList.requestLayout();
-        for (int i = firstVisibleItemPosition; i < lastVisibleItemPosition; ++i) {
-            ParAdapter.ViewHolder holder = (ParAdapter.ViewHolder) parList.findViewHolderForLayoutPosition(i);
-            if ((((TextView)holder.itemView.findViewById(R.id.parVal)).getText().toString()).equals("")){
-                pars.add(0);
-            }
-            else {
-                pars.add(Integer.valueOf((((TextView) holder.itemView.findViewById(R.id.parVal)).getText().toString())));
-            }
-            if ((((TextView)holder.itemView.findViewById(R.id.parYards)).getText().toString()).equals("")){
+        ArrayList<Integer> pars = new ArrayList<>();
+        ArrayList<Double> yards = new ArrayList<>();
+
+        for (String yard: myAdapter.get_yards()){
+            if(yard.equals("")){
                 yards.add(0.0);
             }
             else {
-                yards.add(Double.valueOf((((TextView) holder.itemView.findViewById(R.id.parYards)).getText().toString())));
+                yards.add(Double.parseDouble(yard));
             }
-
         }
 
+        for (String par: myAdapter.get_pars()){
+            if(par.equals("")){
+                pars.add(0);
+            }
+            else {
+                pars.add(Integer.parseInt(par));
+            }
+        }
 
         int mWidth= mMapView.getResources().getDisplayMetrics().widthPixels;
         int mHeight= mMapView.getResources().getDisplayMetrics().heightPixels;
@@ -282,7 +238,7 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
 
         String courseTitleData = ((TextView)findViewById(R.id.courseTitle)).getText().toString();
         String courseDescriptionData = ((TextView)findViewById(R.id.courseDescription)).getText().toString();
-        ImageView courseImage = (ImageView) findViewById(R.id.courseImage);
+        ImageView courseImage = findViewById(R.id.courseImage);
         Matrix courseImageData = courseImage.getImageMatrix();
 
         // Create a new course object with information
@@ -293,17 +249,13 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         course.put("Title", courseTitleData);
         course.put("Yards", yards);
 
-
         Instant.now().toEpochMilli(); //Long = 1450879900184
         long secondsSinceEpoch = Instant.now().getEpochSecond();
-
 
         DocumentReference courseData = db.collection("courses").document(String.valueOf(secondsSinceEpoch));
         courseData.set(course);
 
     }
-
-
 
     public static boolean isInteger(String s) {
         return isInteger(s,10);
@@ -329,13 +281,11 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
                 loadCourses(firestoreCallBack, favIds);
             }
         });
-
     }
 
     private interface FirestoreCallBack{
         void onCallback(ArrayList<DiscMap> list);
     }
-
 
     private void loadCourses(final EnterCourseActivity.FirestoreCallBack callback, final ArrayList<String> ids) {
         db.collection("courses").get()
@@ -348,7 +298,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
                             for (DocumentSnapshot dfCourse : myListOfDocuments) {
                                 String documentId = dfCourse.getId();
                                 if (isInteger(documentId) && documentId.length() == 10) {
-                                    System.out.println(documentId);
                                     String description = dfCourse.getString("Description");
                                     GeoPoint location = dfCourse.getGeoPoint("Location");
                                     ArrayList<Integer> pars = (ArrayList<Integer>) dfCourse.get("Pars");
@@ -375,11 +324,8 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
-
-       myAdapter.update(newVal,oldVal);
-       parList.requestLayout();
-        //parList.setAdapter(myAdapter);
-        //parList.setLayoutManager(new LinearLayoutManager(this));
+        myAdapter.update(newVal, oldVal);
+        parList.requestLayout();
     }
 
 
