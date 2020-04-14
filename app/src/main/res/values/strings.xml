@@ -4,6 +4,14 @@
     <string name="create_account">Create an Account</string>
     <string name="welcome">Welcome!</string>
     <string name="prompt_email">Email</string>
+    <string name="prompt_new_disk_title">Enter New Details</string>
+    <string name="prompt_disc_id">ID</string>
+    <string name="prompt_disc_name">Name</string>
+    <string name="prompt_disc_color">Color</string>
+    <string name="prompt_disc_manufacturer">Manufacturer</string>
+    <string name="prompt_disc_type">Type</string>
+    <string name="prompt_disc_distance">Average Distance</string>
+    <string name="prompt_disc_submit">Add this disk</string>
     <string name="prompt_password">Password</string>
     <string name="string_incorrect_login">The email and/or password you entered is incorrect</string>
     <string name="string_first_name">First Name</string>

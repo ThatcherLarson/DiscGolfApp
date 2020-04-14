@@ -13,16 +13,71 @@
         android:src="@mipmap/ic_launcher"
         />
 
-    <TextView
+    <EditText
+        android:id="@+id/disc_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Disc1"
-        android:textColor="#000"
-        android:textSize="17sp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:id="@+id/disc_name"
+        android:layout_marginLeft="22dp"
         android:layout_toRightOf="@+id/discImage"
-        />
+        android:ems="6"
+        android:inputType="text"
+        android:text="@string/prompt_disc_name"
+        android:textColor="#000"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/disc_manufacturer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/disc_name_text"
+        android:ems="7"
+        android:inputType="text"
+        android:text="@string/prompt_disc_manufacturer"
+        android:textColor="#000"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/disc_type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/disc_name_text"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/discImage"
+        android:layout_toRightOf="@+id/discImage"
+        android:ems="5"
+        android:inputType="text"
+        android:text="@string/prompt_disc_type"
+        android:textColor="#000"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/disc_color_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/disc_manufacturer_text"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/disc_type_text"
+        android:ems="5"
+        android:inputType="text"
+        android:text="@string/prompt_disc_color"
+        android:textColor="#000"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/disc_distance_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/disc_manufacturer_text"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/disc_color_text"
+        android:ems="9"
+        android:inputType="text"
+        android:text="@string/prompt_disc_distance"
+        android:textColor="#000"
+        android:textSize="10sp" />
 
 </RelativeLayout>
