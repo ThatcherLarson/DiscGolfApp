@@ -1,6 +1,6 @@
 # DiscGolfApp
 
-Updated instructions as of 04/01/20.
+Updated instructions as of 04/13/20.
 
 ## Getting Started
 
@@ -20,7 +20,7 @@ downloaded folder on your local device and open in Android Studio.
 
 ## Running the Tests
 
-NOTE: Automated testing is still undeveloped.
+Current JUnit tests can be run by navigating to src>androidTest>java>com.example.discgolfapp in the project window, right-clicking, and selecting run tests.  
 
 To run the full, working application beta, either setup an android mobile device emulator on
 Android Studio or connect an Android device.
