@@ -2,33 +2,22 @@ package com.example.discgolfapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
+
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Looper;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,12 +32,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import controllers.CoursesController;
 import controllers.MeasureThrowController;
-import models.CoursesModel;
 import models.MeasureThrowModel;
 
-public class MeasureThrowActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MeasureThrowActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
+    LocationManager locationManager;
     private MeasureThrowController controller;
     private MeasureThrowModel model;
     private FirebaseAuth auth;
@@ -57,18 +45,16 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
     private GoogleMap gmap;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
-    int PERMISSION_ID = 44;
-    FusedLocationProviderClient mFusedLocationClient;
     TextView latTextView, lonTextView;
     TextView distTextView;
 
-    double initLatitude = 0;
-    double initLongitude = 0;
-    double endLatitude = 0;
-    double endLongitude = 0;
+    private double lat = 0;
+    private double lon = 0;
     float distanceInMeters = 0;
-    Location loc1 = new Location("");
-    Location loc2 = new Location("");
+    float distanceInFeet = 0;
+    String distFeet = "";
+    Location locA = new Location("");
+    Location locB = new Location("");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +69,6 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
         latTextView = findViewById(R.id.latTextView);
         lonTextView = findViewById(R.id.lonTextView);
         distTextView = findViewById(R.id.distTextView);
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -97,30 +82,28 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLastLocationStart();
+                getLocation();
+                locA.setLatitude(lat);
+                locA.setLongitude(lon);
             }
         });
 
         endBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLastLocationEnd();
+                getLocation();
+                locB.setLatitude(lat);
+                locB.setLongitude(lon);
             }
         });
 
         calcDistance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loc1.setLatitude(initLatitude);
-                loc1.setLongitude(initLongitude);
-                loc2.setLatitude(endLatitude);
-                loc2.setLongitude(endLongitude);
-                if (initLatitude != 0 && endLatitude != 0) {
-                    LatLngBounds THROW = new LatLngBounds(new LatLng(initLatitude, initLongitude), new LatLng(endLatitude, endLongitude));
-                    gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(THROW.getCenter(), 19));
-                }
-                distanceInMeters = loc1.distanceTo(loc2);
-                distTextView.setText("Distance: " + distanceInMeters + " meters");
+                distanceInMeters = locA.distanceTo(locB);
+                distanceInFeet = distanceInMeters * (float)(1/.3048);
+                distFeet = roundToOneDigit(distanceInFeet);
+                distTextView.setText("Distance: " + distFeet + " feet");
             }
         });
 
@@ -128,10 +111,8 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
             @Override
             public void onClick(View view) {
                 gmap.clear();
-                initLatitude = 0;
-                initLongitude = 0;
-                endLatitude = 0;
-                endLongitude = 0;
+                lat = 0;
+                lon=0;
             }
         });
 
@@ -148,7 +129,7 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
                             if (ids == null) {
                                 ids = new ArrayList<String>();
                             }
-                            ids.add(distanceInMeters + " meters");
+                            ids.add(distFeet + " feet");
                             Map<String, Object> data = new HashMap<>();
                             data.put("throws", ids);
                             userDoc.set(data, SetOptions.merge());
@@ -160,142 +141,53 @@ public class MeasureThrowActivity extends AppCompatActivity implements OnMapRead
         });
     }
 
-    @SuppressLint("MissingPermission")
-    private void getLastLocationStart(){
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-                mFusedLocationClient.getLastLocation().addOnCompleteListener(
-                        new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location == null) {
-                                    requestNewLocationData();
-                                } else {
-                                    initLatitude = location.getLatitude();
-                                    initLongitude = location.getLongitude();
-                                    latTextView.setText("Latitude: " + location.getLatitude()+"");
-                                    lonTextView.setText("Longitude: " + location.getLongitude()+"");
-                                    gmap.setMinZoomPreference(19);
-                                    gmap.setMapType(gmap.MAP_TYPE_HYBRID);
-                                    LatLng init = new LatLng(initLatitude, initLongitude);
-                                    gmap.addMarker(new MarkerOptions().position(init));
-                                    gmap.moveCamera(CameraUpdateFactory.newLatLng(init));
-                                }
-                            }
-                        }
-                );
-            } else {
-                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
-        } else {
-            requestPermissions();
+
+    void getLocation() {
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1000, this);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private void getLastLocationEnd(){
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-                mFusedLocationClient.getLastLocation().addOnCompleteListener(
-                        new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location == null) {
-                                    requestNewLocationData();
-                                } else {
-                                    endLatitude = location.getLatitude();
-                                    endLongitude = location.getLongitude();
-                                    latTextView.setText("Latitude: " + location.getLatitude()+"");
-                                    lonTextView.setText("Longitude: " + location.getLongitude()+"");
-                                    gmap.setMinZoomPreference(19);
-                                    gmap.setMapType(gmap.MAP_TYPE_HYBRID);
-                                    LatLng end = new LatLng(initLatitude, initLongitude);
-                                    gmap.addMarker(new MarkerOptions().position(end));
-                                    gmap.moveCamera(CameraUpdateFactory.newLatLng(end));
-                                }
-                            }
-                        }
-                );
-            } else {
-                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
-        } else {
-            requestPermissions();
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private void requestNewLocationData(){
-
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(0);
-        mLocationRequest.setFastestInterval(0);
-        mLocationRequest.setNumUpdates(1);
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        mFusedLocationClient.requestLocationUpdates(
-                mLocationRequest, mLocationCallback,
-                Looper.myLooper()
-        );
-
-    }
-
-    private LocationCallback mLocationCallback = new LocationCallback() {
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            Location mLastLocation = locationResult.getLastLocation();
-            latTextView.setText(mLastLocation.getLatitude()+"");
-            lonTextView.setText(mLastLocation.getLongitude()+"");
-        }
-    };
-
-    private boolean checkPermissions() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        return false;
-    }
-
-    private void requestPermissions() {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                PERMISSION_ID
-        );
-    }
-
-    private boolean isLocationEnabled() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-                LocationManager.NETWORK_PROVIDER
-        );
+    public static String roundToOneDigit(float paramFloat) {
+        return String.format("%.1f", paramFloat);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_ID) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocationStart();
-            }
-        }
+    public void onLocationChanged(Location location) {
+        lat = location.getLatitude();
+        lon = location.getLongitude();
+        latTextView.setText("Latitude: " + location.getLatitude()+"");
+        lonTextView.setText("Longitude: " + location.getLongitude()+"");
+        gmap.setMinZoomPreference(19);
+        gmap.setMapType(gmap.MAP_TYPE_HYBRID);
+        LatLng spot = new LatLng(lat, lon);
+        gmap.addMarker(new MarkerOptions().position(spot));
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(spot));
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Toast.makeText(MeasureThrowActivity.this, "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        if (checkPermissions()) {
-            getLastLocationStart();
             mapView.onResume();
-        }
 
     }
 
