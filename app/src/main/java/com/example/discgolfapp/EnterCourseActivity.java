@@ -204,8 +204,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void save_course(){
 
-        final int firstVisibleItemPosition = 0;
-        final int lastVisibleItemPosition = parNumPick.getValue();
         parList.requestLayout();
         ArrayList<Integer> pars = new ArrayList<>();
         ArrayList<Double> yards = new ArrayList<>();

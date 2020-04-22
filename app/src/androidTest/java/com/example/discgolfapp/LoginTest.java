@@ -7,11 +7,8 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +31,7 @@ public class LoginTest {
     @Test
     public void login() {
         final String email = "dbondi@wisc.edu";
-        final String password = "pePPer123!";
+        final String password = "password123!";
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 

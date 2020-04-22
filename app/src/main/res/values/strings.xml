@@ -93,6 +93,19 @@
     <string name="hole16">Hole 16</string>
     <string name="hole17">Hole 17</string>
     <string name="hole18">Hole 18</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="distance">Distance:</string>
+    <string name="calculate_distance">Calculate Distance</string>
+    <string name="save_hole">Save Hole</string>
+    <string name="clear_map">Clear Map</string>
+    <string name="previous_hole">Previous Hole</string>
+    <string name="next_hole">Next Hole</string>
+    <string name="select_player">Select Player</string>
+    <string name="add_throw">Add Throw</string>
+    <string name="undo_throw">Undo Throw</string>
 
     <string-array name="player_array">
         <item>0</item>

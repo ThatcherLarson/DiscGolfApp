@@ -53,6 +53,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     private RecyclerView mMapRecyclerView;
     private Button createMap;
     private Button btnNewGame;
+    private Button startGame;
     GoogleMap googleMap;
     public ArrayList<DiscMap> mMapList = new ArrayList<>();
     private MapAdapter myAdapter;
@@ -116,6 +117,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
                 startActivity(new Intent(FindCourseActivity.this, GamesActivity.class));
             }
         });
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -283,6 +285,13 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public interface ClickListener {
+
+        void onPositionClicked(int position);
+
+        void onLongClicked(int position);
     }
 
 }

@@ -38,7 +38,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="47"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/tvCourseNameMapList"
@@ -72,20 +72,35 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="25"
+                android:layout_weight="8"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    />
                 <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
+                    android:gravity="center_vertical"
                     android:id="@+id/tvFavorite"
                     android:button="@drawable/favorite"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:orientation="vertical">
+
+
+                <Button
+                    android:id="@+id/playGame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Play"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     />
                 <TextView
                     android:id="@+id/tvMilesAway"
@@ -93,8 +108,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginLeft="8dp"
-                    android:text="MilesAway"
-                    android:textSize="16sp"/>
+                    android:text="Miles Away"
+                    android:textSize="12sp"/>
 
                 >
 
