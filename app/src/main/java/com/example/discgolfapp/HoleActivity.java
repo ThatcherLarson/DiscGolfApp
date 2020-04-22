@@ -765,13 +765,6 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
         course.put("Pars", pars);
         course.put("Title", courseTitleData);
         course.put("Yards", yards);
-
-        //Instant.now().toEpochMilli(); //Long = 1450879900184
-        //long secondsSinceEpoch = Instant.now().getEpochSecond();
-
-        ///DocumentReference courseData = db.collection("courses").document(String.valueOf(secondsSinceEpoch));
-        //courseData.set(course);
-
     }
 
     public static boolean isInteger(String s) {
