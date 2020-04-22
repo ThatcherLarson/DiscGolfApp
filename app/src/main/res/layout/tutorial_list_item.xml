@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tutorialListItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/tutorialImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@android:drawable/ic_menu_slideshow" />
+
+        <TextView
+            android:id="@+id/tutorialTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginLeft="21dp"
+            android:textColor="#000"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            android:layout_toRightOf="@+id/tutorialImageView"
+            android:text="Tutorial" />
+</RelativeLayout>

@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -237,5 +239,23 @@ public class MeasureThrowActivity extends AppCompatActivity implements LocationL
         gmap.setMinZoomPreference(12);
         LatLng start = new LatLng(43.073051, -89.401230);
         gmap.moveCamera(CameraUpdateFactory.newLatLng(start));
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.find:
+                startActivity(new Intent(this, FindCourseActivity.class));
+                return true;
+            case R.id.profile:
+                startActivity(new Intent(this, ProfileActivity.class));
+                return true;
+            case R.id.more:
+                startActivity(new Intent(this, MoreActivity.class));
+                return true;
+            case R.id.bag:
+                startActivity(new Intent(this, MyBagActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
