@@ -17,6 +17,10 @@ public class CourseThrows {
         throwList.add(pos,t);
     }
 
+    public void removeLast(){
+        throwList.remove(throwList.size()-1);
+    }
+
     public void removeAll(ArrayList<Throw> thrs){
         throwList.removeAll(thrs);
     }

@@ -602,6 +602,8 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                      polylines.get(polylines.size()-1).remove();
                      polylines.remove(polylines.size()-1);
 
+                     playersAndThrows.get(playerPosition).getUserThrows(parPosition).removeLast();
+
                      final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId).collection("User"+playerPosition).document("User"+playerPosition);
                      courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                          @Override
