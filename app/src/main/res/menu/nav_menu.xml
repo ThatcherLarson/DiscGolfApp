@@ -6,6 +6,8 @@
         android:title="My Bag" />
     <item android:id="@+id/profile"
         android:title="Profile" />
+    <item android:id="@+id/recent_games"
+        android:title="Recent Games" />
     <item android:id="@+id/more"
         android:title="More" />
 </menu>

@@ -239,8 +239,9 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap map) {
-        googleMap = map;
 
+        googleMap = map;
+        googleMap.setIndoorEnabled(false);
         final LatLng Madison = new LatLng(43.073929, -89.385239);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(Madison, 4.0f));
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -280,8 +281,17 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
             case R.id.more:
                 startActivity(new Intent(this, MoreActivity.class));
                 return true;
+            case R.id.recent_games:
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("discMaps",mMapList);
+                Intent intent = new Intent(this, RecentGamesActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
             case R.id.bag:
                 startActivity(new Intent(this, MyBagActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

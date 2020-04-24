@@ -17,6 +17,12 @@ public class UserCourse {
         this.name = name;
     }
 
+    public UserCourse(ArrayList<Integer> strokes, Map<Integer,CourseThrows> courseThrows, String name){
+        parResults = strokes;
+        this.name = name;
+    }
+
+
     public CourseThrows getUserThrows(int pos){
         return throwList.get(pos);
     }

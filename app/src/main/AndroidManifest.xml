@@ -7,6 +7,7 @@ package="com.example.discgolfapp">
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +18,7 @@ package="com.example.discgolfapp">
             <activity android:name=".ScorecardActivity"></activity>
             <activity android:name=".RulesActivity" />
             <activity android:name=".StartGameActivity" />
+            <activity android:name=".RecentGamesActivity"/>
             <activity android:name=".HoleActivity" />
             <activity android:name=".MeasureThrowActivity" />
             <activity android:name=".TutorialsActivity" />
@@ -34,7 +36,9 @@ package="com.example.discgolfapp">
 
             <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyATft7zrL68bMv5mFBK_aa73Zzfk4L1XtA" />
+                android:value="AIzaSyATft7zrL68bMv5mFBK_aa73Zzfk4L1XtA"
+                />
+
 
             <activity android:name=".WelcomeActivity">
                 <intent-filter>
@@ -43,6 +47,9 @@ package="com.example.discgolfapp">
                     <category android:name="android.intent.category.LAUNCHER" />
                 </intent-filter>
             </activity>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>
