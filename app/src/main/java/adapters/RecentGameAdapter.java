@@ -48,7 +48,7 @@ public class RecentGameAdapter extends RecyclerView.Adapter<RecentGameAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return gamesID.size();
     }
 
     public void update(ArrayList<String> users, ArrayList<DiscMap> discMaps) {

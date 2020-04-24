@@ -61,6 +61,7 @@ public class RecentGamesActivity extends AppCompatActivity {
             @Override
             public void onCallBack(ArrayList<String> list) {
                 users = list;
+                System.out.println(list);
                 myAdapter.update(users,discMaps);
                 myAdapter.notifyDataSetChanged();
             }

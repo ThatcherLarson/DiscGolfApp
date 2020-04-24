@@ -1,7 +1,9 @@
 package com.example.discgolfapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +67,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_course);
+        fixGoogleMapBug();
 
         controller = new CoursesController(this);
         model = new CoursesModel();
@@ -241,7 +245,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     public void onMapReady(GoogleMap map) {
 
         googleMap = map;
-        googleMap.setIndoorEnabled(false);
         final LatLng Madison = new LatLng(43.073929, -89.385239);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(Madison, 4.0f));
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -250,6 +253,15 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
             return;
         }
         googleMap.setMyLocationEnabled(true);
+    }
+
+    private void fixGoogleMapBug() {
+        SharedPreferences googleBug = getSharedPreferences("google_bug", Context.MODE_PRIVATE);
+        if (!googleBug.contains("fixed")) {
+            File corruptedZoomTables = new File(getFilesDir(), "ZoomTables.data");
+            corruptedZoomTables.delete();
+            googleBug.edit().putBoolean("fixed", true).apply();
+        }
     }
 
     @Override

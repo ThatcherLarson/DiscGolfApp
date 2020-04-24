@@ -130,14 +130,13 @@ public class StartGameActivity extends AppCompatActivity implements NumberPicker
             userScores.put("Location"+ i,new ArrayList<Object>());
         }
 
+        for(int i = 0; i < myAdapter.get_names().size(); i++){
+            course.put("User"+i,userScores);
+        }
+
         DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
         courseData.set(course);
 
-        for(int i = 0; i < myAdapter.get_names().size(); i++){
-            DocumentReference userData = courseData.collection("User"+i).document("User"+i);
-
-            userData.set(userScores);
-        }
 
 
 
