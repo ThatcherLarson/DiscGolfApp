@@ -193,19 +193,7 @@
                     android:layout_weight=".15"
                     android:orientation="horizontal">
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight=".3"
-                    android:orientation="horizontal">
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight=".15"
-                    android:orientation="horizontal">
-                </LinearLayout>
             </LinearLayout>
 
 
@@ -268,6 +256,28 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight=".8"
+                        android:text="@string/hole_number"
+                        android:textColor="@android:color/black"
+                        android:textSize="23dp" />
+                    <TextView
+                        android:id="@+id/holeNum"
+                        android:textSize="23sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
                         android:text="@string/yards"
                         android:layout_marginLeft="20dp"
                         android:textSize="23dp"
@@ -317,10 +327,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="23dp"
                     android:gravity="center"
-                    android:text="@string/par"
-                    android:textColor="@android:color/black" />
+                    android:text="@string/strokes"
+                    android:textColor="@android:color/black"
+                    android:textSize="23sp" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

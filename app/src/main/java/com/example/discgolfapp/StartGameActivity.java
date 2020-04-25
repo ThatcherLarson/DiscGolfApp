@@ -42,7 +42,7 @@ public class StartGameActivity extends AppCompatActivity implements NumberPicker
 
     public ArrayList<String> users = new ArrayList<>();
 
-    String TAG = "StartGameActicity";
+    String TAG = "StartGameActivity";
 
     FirebaseFirestore db;
 
