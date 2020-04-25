@@ -62,6 +62,7 @@ public class DiscMap implements Parcelable {
     public boolean getFavorite(){
         return favorite;
     }
+
     public static double distance(double lat1, double lat2, double lon1,
                                   double lon2, double el1, double el2) {
 
@@ -120,6 +121,9 @@ public class DiscMap implements Parcelable {
     public DiscMap(){
 
     }
+    public GeoPoint getLocation(){
+        return new GeoPoint(latitude,longitude);
+    }
 
     public String getAddress() {
         return address;
@@ -170,11 +174,17 @@ public class DiscMap implements Parcelable {
     }
 
     protected DiscMap(Parcel in){
-        address = in.readString();
-        longitude = in.readFloat();
-        latitude = in.readFloat();
-        pars = in.readArrayList(String.class.getClassLoader());
 
+        address = in.readString();
+        title = in.readString();
+        description = in.readString();
+        id = in.readString();
+        longitude = in.readDouble();
+        latitude = in.readDouble();
+        pars = in.readArrayList(Integer.class.getClassLoader());
+        yards = in.readArrayList(Integer.class.getClassLoader());
+        milesAway = in.readDouble();
+        favorite = in.readBoolean();
     }
 
     public static final Creator<DiscMap> CREATOR = new Creator<DiscMap>() {
@@ -196,10 +206,16 @@ public class DiscMap implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeString(address);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(id);
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
-        //dest.writeArrayList(pars);
-
+        dest.writeList(pars);
+        dest.writeList(yards);
+        dest.writeDouble(milesAway);
+        dest.writeBoolean(favorite);
     }
 }

@@ -1,8 +1,11 @@
 package adapters;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.discgolfapp.R;
+import com.example.discgolfapp.StartGameActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +50,9 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
         return holder;
     }
 
+
+
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -68,6 +75,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
         TextView description;
         TextView numPars;
         TextView milesAway;
+        Button newGame;
         CheckBox favorite;
 
         public ViewHolder(View itemView) {
@@ -77,6 +85,20 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
             numPars = itemView.findViewById(R.id.tvParsMapList);
             milesAway = itemView.findViewById(R.id.tvMilesAway);
             favorite = itemView.findViewById(R.id.tvFavorite);
+            newGame = itemView.findViewById(R.id.playGame);
+
+            newGame.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (v.getId() == R.id.playGame) {
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("Map", mMaps.get(getAdapterPosition()));
+                        Intent intent = new Intent(v.getContext(), StartGameActivity.class);
+                        intent.putExtras(bundle);
+                        v.getContext().startActivity(intent);
+                    }
+                }
+            });
 
             favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,7 +114,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
                                     if (ids == null) {
                                         ids = new ArrayList<String>();
                                     }
-                                    String id = getCourseId(title.getText().toString());
+                                    String id = mMaps.get(getAdapterPosition()).getId();
                                     if (favorite.isChecked()) {
                                         if (id != null) {
                                             ids.add(id);
@@ -113,16 +135,6 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.ViewHolder> {
             });
         }
 
-        public String getCourseId(String name) {
-            for (DiscMap course: mMaps) {
-                if (course.getTitle().equals(name)) {
-                    return course.getId();
-                }
-            }
-            return null;
-        }
 
     }
-
-
 }

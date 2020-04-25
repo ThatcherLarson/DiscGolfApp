@@ -5,4 +5,6 @@
     <color name="colorTeal">#0ea7b5</color>
     <color name="colorDarkBlue">#0c457d</color>
     <color name="colorOrange">#e8702a</color>
+    <color name="TealMoreTrans">#1a0ea7b5</color>
+    <color name="TealTrans">#400ea7b5</color>
 </resources>
