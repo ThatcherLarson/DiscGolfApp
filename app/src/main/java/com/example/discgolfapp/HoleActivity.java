@@ -1,6 +1,7 @@
 package com.example.discgolfapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -116,6 +117,10 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     FirebaseFirestore db;
 
+    public Context getContext() {
+        return (Context) this;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -175,8 +180,6 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
         undoThrow = findViewById(R.id.undo_throw);
         enterPar = findViewById(R.id.enterPar);
 
-
-
         previousHole.setVisibility(View.GONE);
 
         playerPosition = 0;
@@ -186,19 +189,6 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
         playerNames.setOnItemClickListener(this);
         */
         final Spinner sp = playerNames;
-        List<String> playerArray = new ArrayList<>();
-        for (String player:players){
-            playerArray.add(player);
-        }
-
-
-
-        //Spinner adapter
-        ArrayAdapter<String> playerDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, playerArray);
-
-        playerDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        sp.setAdapter(playerDataAdapter);
 
 
         if(loadDB) {
@@ -211,8 +201,15 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                 @Override
                 public void onCallback(Map<Integer, UserCourse> courseThrows) {
                     playersAndThrows = courseThrows;
-                    UserCourse holeThrows = courseThrows.get(parPosition);
-                    CourseThrows playerThrows = holeThrows.getUserThrows(playerPosition);
+
+                    ArrayList<String> playerArray = new ArrayList<>();
+
+                    UserCourse holeThrows = courseThrows.get(playerPosition);
+                    for (int i = 0; i < playersAndThrows.size(); i++){
+                        playerArray.add(playersAndThrows.get(i).getName());
+                    }
+
+                    CourseThrows playerThrows = holeThrows.getUserThrows(parPosition);
                     for (int i = 0; i < playerThrows.numberOfThrows(); i++) {
                         Throw t = playerThrows.getThrow(i);
                         LatLng lstart = new LatLng(t.get_start().getLatitude(),t.get_start().getLongitude());
@@ -227,14 +224,52 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                     nextHole.setEnabled(true);
                     playerNames.setEnabled(true);
 
+                    UserCourse userP = playersAndThrows.get(playerPosition);
+                    Integer pp = ((Number)parPosition).intValue();
+                    Integer yar = ((Number)yardVals.get(pp)).intValue();
+                    Integer pfc = ((Number)parVals.get(pp)).intValue();
+                    Integer ugr = ((Number)userP.getParResults().get(pp)).intValue();
+
+                    yardage.setText(Integer.toString(yar));
+                    parForCourse.setText(Integer.toString(pfc));
+                    enterPar.setText(Integer.toString(ugr));
+
+
+                    players =playerArray;
+
+                    //Spinner adapter
+                    ArrayAdapter<String> playerDataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, playerArray);
+
+                    playerDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    sp.setAdapter(playerDataAdapter);
+
 
                 }
 
+
+
             });
+
+
         }
         else{
             //create playersAndThrows
             playersAndThrows = new HashMap<Integer, UserCourse>();
+
+            List<String> playerArray = new ArrayList<>();
+            for (String player:players){
+                playerArray.add(player);
+            }
+
+
+
+            //Spinner adapter
+            ArrayAdapter<String> playerDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, playerArray);
+
+            playerDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            sp.setAdapter(playerDataAdapter);
 
             int it = 0;
             for(String name:players){
@@ -269,13 +304,13 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                     final CharSequence tex = s;
                     playersAndThrows.get(playerPosition).setPar(parPosition,Integer.valueOf(tex.toString()));
 
-                    final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId).collection("User" + playerPosition).document("User" + playerPosition);
+                    final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
                     courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
-                                ArrayList<Object> pars = (ArrayList<Object>) document.getData().get("Pars");
+                                ArrayList<Object> pars = (ArrayList<Object>) ((Map<String,Object> )document.getData().get("User"+playerPosition)).get("Pars");
                                 pars.set(parPosition, Integer.valueOf(Integer.valueOf(tex.toString())));
 
                                 Map<String, Object> mapLocation = document.getData();
@@ -389,13 +424,15 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Throw tr = new Throw(startGeo,endGeo);
                     playersAndThrows.get(playerPosition).addThrow(tr,parPosition);
 
-                    final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId).collection("User"+playerPosition).document("User"+playerPosition);
+                    final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
                     courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot location = task.getResult();
-                                ArrayList<Object> geoPoints= (ArrayList<Object>) location.getData().get("Location" + Integer.toString(parPosition+1));
+                                Map<String,Object> mapLocation = location.getData();
+                                Map<String,Object> users = ((Map<String,Object>)mapLocation.get("User"+playerPosition));
+                                ArrayList<Object> geoPoints = (ArrayList<Object>)users.get("Location"+Integer.toString(parPosition+1));
 
                                 //create new location
                                 Map<String,GeoPoint> locationMap = new HashMap<String, GeoPoint>() ;
@@ -405,11 +442,9 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 locationMap.put("End",endGeo);
                                 //Add location start and end
                                 geoPoints.add(locationMap);
+                                users.put("Location" + Integer.toString(parPosition+1),geoPoints);
+                                mapLocation.put("User"+playerPosition,users);
 
-                                //get data
-                                Map<String,Object> mapLocation = location.getData();
-                                //update par start and end
-                                mapLocation.put("Location" + Integer.toString(parPosition+1),geoPoints);
                                 //set location
                                 courseData.set(mapLocation);
                             }
@@ -439,9 +474,26 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
                 //reset database
-                final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId).collection("User"+playerPosition).document("User"+playerPosition);
-                ArrayList<Object> mapLocation = new ArrayList<>();
-                courseData.update("Location" + Integer.toString(parPosition+1),mapLocation);
+                final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
+
+                courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot location = task.getResult();
+                            Map<String,Object> mapLocation = location.getData();
+                            Map<String,Object> users = ((Map<String,Object>)mapLocation.get("User"+playerPosition));
+                            ArrayList<GeoPoint> geoPoints = new ArrayList<>();
+                            users.put("Location" + Integer.toString(parPosition+1),geoPoints);
+
+                            mapLocation.put("User"+playerPosition,users);
+
+                            courseData.set(mapLocation);
+                        }
+
+                    }
+                });
 
             }
         });
@@ -485,9 +537,10 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (!discMap.getNumPars().equals(parPosition)) {
                     Integer yar = ((Number) yardVals.get(pp)).intValue();
                     Integer pfc = ((Number) parVals.get(pp)).intValue();
+                    Integer ugr = ((Number)userP.getParResults().get(pp)).intValue();
                     yardage.setText(Integer.toString(yar));
                     parForCourse.setText(Integer.toString(pfc));
-                    enterPar.setText(Integer.toString(userP.getParResults().get(pp)));
+                    enterPar.setText(Integer.toString(ugr));
                 }
 
 
@@ -532,9 +585,10 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Integer pp = ((Number)parPosition).intValue();
                 Integer yar = ((Number)yardVals.get(pp)).intValue();
                 Integer pfc = ((Number)parVals.get(pp)).intValue();
+                Integer ugr = ((Number)userP.getParResults().get(pp)).intValue();
                 yardage.setText(Integer.toString(yar));
                 parForCourse.setText(Integer.toString(pfc));
-                enterPar.setText(Integer.toString(userP.getParResults().get(pp)));
+                enterPar.setText(Integer.toString(ugr));
 
                 if(start){
                     startMarker.remove();
@@ -618,22 +672,24 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                      playersAndThrows.get(playerPosition).getUserThrows(parPosition).removeLast();
 
-                     final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId).collection("User"+playerPosition).document("User"+playerPosition);
+                     final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
                      courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                          @Override
                          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                              if (task.isSuccessful()) {
-                                 DocumentSnapshot location = task.getResult();
-                                 ArrayList<Object> geoPoints= (ArrayList<Object>) location.getData().get("Location" + Integer.toString(parPosition+1));
+                                 //Start
+                                 DocumentSnapshot document = task.getResult();
+                                 Map<String,Object> doc = document.getData();
+                                 Map<String,Object> playerThrows = ((Map<String,Object> )doc.get("User"+playerPosition));
+                                 ArrayList<Object> geoPoints = (ArrayList<Object>) playerThrows.get("Location" + Integer.toString(parPosition+1));
 
-                                 geoPoints.remove(geoPoints.size()-1);
 
                                  //get data
-                                 Map<String,Object> mapLocation = location.getData();
-                                 //update par start and end
-                                 mapLocation.put("Location" + Integer.toString(parPosition+1),geoPoints);
+                                 geoPoints.remove(geoPoints.size()-1);
+                                 playerThrows.put("Location" + Integer.toString(parPosition+1),geoPoints);
+                                 doc.put("User"+playerPosition,playerThrows);
                                  //set location
-                                 courseData.set(mapLocation);
+                                 courseData.set(doc);
                              }
 
                          }
@@ -660,12 +716,7 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void loadDataOnCourse(final HoleActivity.FirestoreCallBack firestoreCallBack) {
-        db.collection("users").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                loadCourses(firestoreCallBack);
-            }
-        });
+        loadGames(firestoreCallBack);
     }
 
     @Override
@@ -750,71 +801,6 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    //TODO check if pars and yards are numbers
-    public void save_course(){
-
-        final int firstVisibleItemPosition = 0;
-        final int lastVisibleItemPosition = parNumPick.getValue();
-        parList.requestLayout();
-        ArrayList<Integer> pars = new ArrayList<>();
-        ArrayList<Double> yards = new ArrayList<>();
-
-        for (String yard: myAdapter.get_yards()){
-            if(yard.equals("")){
-                yards.add(0.0);
-            }
-            else {
-                yards.add(Double.parseDouble(yard));
-            }
-        }
-
-        for (String par: myAdapter.get_pars()){
-            if(par.equals("")){
-                pars.add(0);
-            }
-            else {
-                pars.add(Integer.parseInt(par));
-            }
-        }
-
-        int mWidth= mMapView.getResources().getDisplayMetrics().widthPixels;
-        int mHeight= mMapView.getResources().getDisplayMetrics().heightPixels;
-
-        Point x_y_points = new Point(mWidth, mHeight);
-        LatLng latLng = googleMap.getCameraPosition().target;//googleMap.getProjection().fromScreenLocation(x_y_points);
-        longitude = latLng.longitude;
-        latitude = latLng.latitude;
-
-        String courseTitleData = ((TextView)findViewById(R.id.courseTitle)).getText().toString();
-        String courseDescriptionData = ((TextView)findViewById(R.id.courseDescription)).getText().toString();
-        ImageView courseImage = findViewById(R.id.courseImage);
-        Matrix courseImageData = courseImage.getImageMatrix();
-
-        // Create a new course object with information
-        Map<String, Object> course = new HashMap<>();
-        course.put("Description", courseDescriptionData);
-        course.put("Location", new GeoPoint(latitude,longitude));
-        course.put("Pars", pars);
-        course.put("Title", courseTitleData);
-        course.put("Yards", yards);
-    }
-
-    public static boolean isInteger(String s) {
-        return isInteger(s,10);
-    }
-
-    public static boolean isInteger(String s, int radix) {
-        if(s.isEmpty()) return false;
-        for(int i = 0; i < s.length(); i++) {
-            if(i == 0 && s.charAt(i) == '-') {
-                if(s.length() == 1) return false;
-                else continue;
-            }
-            if(Character.digit(s.charAt(i),radix) < 0) return false;
-        }
-        return true;
-    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -853,34 +839,45 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
         void onCallback(Map<Integer, UserCourse> courseThrows);
     }
 
-    private void loadCourses(final HoleActivity.FirestoreCallBack callback) {
-        db.collection("courses").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        ArrayList<DiscMap> mMapTempList = new ArrayList<>();
-                        if (task.isSuccessful()) {
-                            List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
-                            for (DocumentSnapshot dfCourse : myListOfDocuments) {
-                                String documentId = dfCourse.getId();
-                                if (isInteger(documentId) && documentId.length() == 10) {
-                                    String description = dfCourse.getString("Description");
-                                    GeoPoint location = dfCourse.getGeoPoint("Location");
-                                    ArrayList<Integer> pars = (ArrayList<Integer>) dfCourse.get("Pars");
-                                    String title = dfCourse.getString("Title");
-                                    ArrayList<Integer> yards = (ArrayList<Integer>) dfCourse.get("Yards");
-                                    DiscMap newCourse = new DiscMap(documentId, title, description, location, pars, yards);
+    private void loadGames(final HoleActivity.FirestoreCallBack callback) {
+        db.collection("users").document(auth.getUid()).collection("games").document(courseId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Map<String,Object> loadGame = task.getResult().getData();
+                ArrayList<String> names = (ArrayList<String>)loadGame.get("Names");
+                Map<Integer, UserCourse> gameData = new HashMap<>();
+                for (int i = 0; i < names.size(); i++){
+                    ArrayList<Integer> strokes = (ArrayList<Integer>) ((Map<String,Object>)loadGame.get("User"+i)).get("Pars");
+                    Map<Integer,CourseThrows> courseThrows = new HashMap<>();
+                    for(int j = 0; j < strokes.size(); j++){
+                        CourseThrows ct = new CourseThrows();
+                        ArrayList<Object> parThrows = (ArrayList<Object>) ((Map<String,Object>)loadGame.get("User"+i)).get("Location"+Integer.toString(j+1));
 
-                                    mMapTempList.add(newCourse);
-                                }
-                            }
+                        for(Object parThrow: parThrows){
+                            Map<String,GeoPoint> geoStartEnd = (Map<String, GeoPoint>) parThrow;
+                            GeoPoint startGeo = geoStartEnd.get("Start");
+                            GeoPoint endGeo = geoStartEnd.get("End");
+                            Throw singleThrow = new Throw(startGeo,endGeo);
+                            ct.addThrowEnd(singleThrow);
                         }
-                        else{
-                            Log.d(TAG,"Error getting documents: ", task.getException());
-                        }
+
+
+                        courseThrows.put(j,ct);
                     }
-                });
+
+                    UserCourse myCourse = new UserCourse(strokes,courseThrows, names.get(i));
+                    gameData.put(i,myCourse);
+
+
+                }
+                callback.onCallback(gameData);
+
+            }
+
+        });
+
     }
+
 
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
