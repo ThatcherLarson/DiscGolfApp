@@ -60,7 +60,7 @@ import models.UserCourse;
 
 import static util.Constants.MAPVIEW_BUNDLE_KEY;
 
-public class HoleActivity extends AppCompatActivity implements OnMapReadyCallback, NumberPicker.OnValueChangeListener, OnItemSelectedListener, AdapterView.OnItemClickListener  {
+public class HoleActivity extends AppCompatActivity implements OnMapReadyCallback, OnItemSelectedListener, AdapterView.OnItemClickListener  {
     private HoleController controller;
     private HoleModel model;
     private FirebaseAuth auth;
@@ -305,15 +305,16 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                ArrayList<Object> pars = (ArrayList<Object>) ((Map<String,Object> )document.getData().get("User"+playerPosition)).get("Pars");
-                                pars.set(parPosition, Integer.valueOf(Integer.valueOf(tex.toString())));
+                                Map<String,Object> document = task.getResult().getData();
+                                Map<String,Object> user = (Map<String, Object>) document.get("User"+playerPosition);
+                                ArrayList<Object> pars = (ArrayList<Object>)user.get("Pars");
 
-                                Map<String, Object> mapLocation = document.getData();
-                                //update par start and end
-                                mapLocation.put("Pars", pars);
+                                pars.set(parPosition, Integer.valueOf(Integer.valueOf(tex.toString())));
+                                user.put("Pars",pars);
+                                document.put("User"+playerPosition,user);
+
                                 //set location
-                                courseData.set(mapLocation);
+                                courseData.set(document);
                             }
 
                         }
@@ -853,44 +854,6 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         });
 
-    }
-
-    @Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-        parPosition = newVal-1;
-
-        if (parPosition == 0){
-            previousHole.setVisibility(View.GONE);
-        }
-        else if(oldVal == 1){
-            previousHole.setVisibility(View.VISIBLE);
-        }
-        if((parPosition+1)==discMap.getNumPars()){
-            nextHole.setVisibility(View.GONE);
-        }
-        else if(oldVal == discMap.getNumPars()){
-            nextHole.setVisibility(View.VISIBLE);
-        }
-
-
-        for(Polyline ref: polylines){
-            ref.remove();
-        }
-        polylines = new ArrayList<Polyline>();
-        Map<Integer, CourseThrows> holeThrows = playersAndThrows.get(playerPosition).getThrowList();
-
-        Integer pp = ((Number)parPosition).intValue();
-        CourseThrows playerThrows = holeThrows.get(pp);
-        if(playerThrows != null) {
-            for (int i = 0; i < playerThrows.numberOfThrows(); i++) {
-                Throw t = playerThrows.getThrow(i);
-                LatLng lstart = new LatLng(t.get_start().getLatitude(), t.get_start().getLongitude());
-                LatLng lend = new LatLng(t.get_end().getLatitude(), t.get_end().getLongitude());
-
-                Polyline line = googleMap.addPolyline(new PolylineOptions().add(lstart, lend).width(5).color(Color.RED));
-                polylines.add(line);
-            }
-        }
     }
 
 
