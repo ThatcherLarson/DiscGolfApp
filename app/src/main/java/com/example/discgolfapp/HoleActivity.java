@@ -65,7 +65,7 @@ import models.UserCourse;
 
 import static util.Constants.MAPVIEW_BUNDLE_KEY;
 
-public class HoleActivity extends AppCompatActivity implements OnMapReadyCallback, NumberPicker.OnValueChangeListener, OnItemSelectedListener, AdapterView.OnItemClickListener {
+public class HoleActivity extends AppCompatActivity implements OnMapReadyCallback, OnItemSelectedListener, AdapterView.OnItemClickListener  {
     private HoleController controller;
     private HoleModel model;
     private FirebaseAuth auth;
@@ -121,6 +121,7 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
         return (Context) this;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,14 +144,14 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Bundle bundleData = getIntent().getExtras();
         discMap = getIntent().getParcelableExtra("Map");
-        players = bundleData.getStringArrayList("Names");
         boolean loadDB = bundleData.getBoolean("LoadDB");
         courseId = bundleData.getString("CourseId");
 
         parVals=discMap.getPars();
         yardVals=discMap.getYards();
 
-        parPosition = 0;
+        parPosition = (int)0;
+
 
 
         polylines = new ArrayList<Polyline>();
@@ -180,15 +181,15 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
         undoThrow = findViewById(R.id.undo_throw);
         enterPar = findViewById(R.id.enterPar);
 
+
+
         previousHole.setVisibility(View.GONE);
 
         playerPosition = 0;
 
 
-        /*
-        playerNames.setOnItemClickListener(this);
-        */
         final Spinner sp = playerNames;
+
 
 
         if(loadDB) {
@@ -254,15 +255,17 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         }
         else{
+
+            players = bundleData.getStringArrayList("Names");
+
             //create playersAndThrows
             playersAndThrows = new HashMap<Integer, UserCourse>();
+
 
             List<String> playerArray = new ArrayList<>();
             for (String player:players){
                 playerArray.add(player);
             }
-
-
 
             //Spinner adapter
             ArrayAdapter<String> playerDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, playerArray);
@@ -270,6 +273,7 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
             playerDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             sp.setAdapter(playerDataAdapter);
+
 
             int it = 0;
             for(String name:players){
@@ -287,6 +291,7 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
             Integer pfc = ((Number)parVals.get(pp)).intValue();
             yardage.setText(Integer.toString(yar));
             parForCourse.setText(Integer.toString(pfc));
+
 
         }
 
@@ -309,15 +314,16 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                ArrayList<Object> pars = (ArrayList<Object>) ((Map<String,Object> )document.getData().get("User"+playerPosition)).get("Pars");
-                                pars.set(parPosition, Integer.valueOf(Integer.valueOf(tex.toString())));
+                                Map<String,Object> document = task.getResult().getData();
+                                Map<String,Object> user = (Map<String, Object>) document.get("User"+playerPosition);
+                                ArrayList<Object> pars = (ArrayList<Object>)user.get("Pars");
 
-                                Map<String, Object> mapLocation = document.getData();
-                                //update par start and end
-                                mapLocation.put("Pars", pars);
+                                pars.set(parPosition, Integer.valueOf(Integer.valueOf(tex.toString())));
+                                user.put("Pars",pars);
+                                document.put("User"+playerPosition,user);
+
                                 //set location
-                                courseData.set(mapLocation);
+                                courseData.set(document);
                             }
 
                         }
@@ -442,9 +448,11 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 locationMap.put("End",endGeo);
                                 //Add location start and end
                                 geoPoints.add(locationMap);
+
+                                //get data
+                                //update par start and end
                                 users.put("Location" + Integer.toString(parPosition+1),geoPoints);
                                 mapLocation.put("User"+playerPosition,users);
-
                                 //set location
                                 courseData.set(mapLocation);
                             }
@@ -494,7 +502,6 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     }
                 });
-
             }
         });
 
@@ -582,6 +589,7 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                 UserCourse userP = playersAndThrows.get(playerPosition);
                 Map<Integer, CourseThrows> holeThrows = userP.getThrowList();
 
+
                 Integer pp = ((Number)parPosition).intValue();
                 Integer yar = ((Number)yardVals.get(pp)).intValue();
                 Integer pfc = ((Number)parVals.get(pp)).intValue();
@@ -631,9 +639,11 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Integer pp = ((Number)parPosition).intValue();
                 Integer yar = ((Number)yardVals.get(pp)).intValue();
                 Integer pfc = ((Number)parVals.get(pp)).intValue();
+                Integer ugr = ((Number)userP.getParResults().get(pp)).intValue();
                 yardage.setText(Integer.toString(yar));
                 parForCourse.setText(Integer.toString(pfc));
-                enterPar.setText(Integer.toString(userP.getParResults().get(pp)));
+                enterPar.setText(Integer.toString(ugr));
+
 
                 if(start){
                     startMarker.remove();
@@ -688,6 +698,7 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                                  geoPoints.remove(geoPoints.size()-1);
                                  playerThrows.put("Location" + Integer.toString(parPosition+1),geoPoints);
                                  doc.put("User"+playerPosition,playerThrows);
+                                 //update par start and end
                                  //set location
                                  courseData.set(doc);
                              }
@@ -845,8 +856,10 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 Map<String,Object> loadGame = task.getResult().getData();
                 ArrayList<String> names = (ArrayList<String>)loadGame.get("Names");
+
                 Map<Integer, UserCourse> gameData = new HashMap<>();
                 for (int i = 0; i < names.size(); i++){
+
                     ArrayList<Integer> strokes = (ArrayList<Integer>) ((Map<String,Object>)loadGame.get("User"+i)).get("Pars");
                     Map<Integer,CourseThrows> courseThrows = new HashMap<>();
                     for(int j = 0; j < strokes.size(); j++){
@@ -876,45 +889,6 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         });
 
-    }
-
-
-    @Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-        parPosition = newVal-1;
-
-        if (parPosition == 0){
-            previousHole.setVisibility(View.GONE);
-        }
-        else if(oldVal == 1){
-            previousHole.setVisibility(View.VISIBLE);
-        }
-        if((parPosition+1)==discMap.getNumPars()){
-            nextHole.setVisibility(View.GONE);
-        }
-        else if(oldVal == discMap.getNumPars()){
-            nextHole.setVisibility(View.VISIBLE);
-        }
-
-
-        for(Polyline ref: polylines){
-            ref.remove();
-        }
-        polylines = new ArrayList<Polyline>();
-        Map<Integer, CourseThrows> holeThrows = playersAndThrows.get(playerPosition).getThrowList();
-
-        Integer pp = ((Number)parPosition).intValue();
-        CourseThrows playerThrows = holeThrows.get(pp);
-        if(playerThrows != null) {
-            for (int i = 0; i < playerThrows.numberOfThrows(); i++) {
-                Throw t = playerThrows.getThrow(i);
-                LatLng lstart = new LatLng(t.get_start().getLatitude(), t.get_start().getLongitude());
-                LatLng lend = new LatLng(t.get_end().getLatitude(), t.get_end().getLongitude());
-
-                Polyline line = googleMap.addPolyline(new PolylineOptions().add(lstart, lend).width(5).color(Color.RED));
-                polylines.add(line);
-            }
-        }
     }
 
 
