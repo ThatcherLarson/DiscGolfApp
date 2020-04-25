@@ -13,24 +13,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.discgolfapp.HoleActivity;
 import com.example.discgolfapp.R;
+import com.example.discgolfapp.ScorecardActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
+import models.CourseThrows;
 import models.DiscMap;
+import models.Throw;
+import models.UserCourse;
 
 public class RecentGameAdapter extends RecyclerView.Adapter<RecentGameAdapter.ViewHolder> {
     ArrayList<String> dates = new ArrayList<>();
     ArrayList<DiscMap> mapsToGames = new ArrayList<>();
     ArrayList<String> gamesID = new ArrayList<>();
 
+    String gameID = "";
+
+    FirebaseFirestore db;
+    private FirebaseAuth auth;
+
 
     @NonNull
     @Override
     public RecentGameAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recent_games, parent, false);
         final RecentGameAdapter.ViewHolder holder = new RecentGameAdapter.ViewHolder(view);
         return holder;
@@ -73,6 +92,7 @@ public class RecentGameAdapter extends RecyclerView.Adapter<RecentGameAdapter.Vi
     }
 
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         Button return_to_game;
         Button scoreCard;
@@ -105,19 +125,87 @@ public class RecentGameAdapter extends RecyclerView.Adapter<RecentGameAdapter.Vi
                 }
             });
 
-
             scoreCard.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(final View v) {
                     if (v.getId() == R.id.scoreCard) {
+                            gameID = gamesID.get(getAdapterPosition());
+
+                            loadDataOnCourse(new RecentGameAdapter.FirestoreCallBack() {
+                                @Override
+                                public void onCallback(Map<Integer, UserCourse> courseThrows,ArrayList<String> names) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putIntegerArrayList("Pars", mapsToGames.get(getAdapterPosition()).getPars());
+
+                                    int count = 0;
+                                    for (String name:names) {
+                                        bundle.putIntegerArrayList(name + "scores", courseThrows.get(count).getParResults());
+                                        count++;
+                                    }
+                                    bundle.putStringArrayList("Names", names);
+
+                                    Intent intent = new Intent(v.getContext(), ScorecardActivity.class);
+                                    intent.putExtras(bundle);
+                                    v.getContext().startActivity(intent);
+                                }
+                            });
+                        }
 
 
-                    }
                 }
             });
 
         }
 
+
+    }
+    private interface FirestoreCallBack{
+        void onCallback(Map<Integer, UserCourse> courseThrows,ArrayList<String> names);
+    }
+
+    private void loadDataOnCourse(final RecentGameAdapter.FirestoreCallBack firestoreCallBack) {
+        loadGames(firestoreCallBack);
+    }
+
+    private void loadGames(final RecentGameAdapter.FirestoreCallBack callback) {
+        String courseId = gameID;
+        db.collection("users").document(auth.getUid()).collection("games").document(courseId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Map<String,Object> loadGame = task.getResult().getData();
+                ArrayList<String> names = (ArrayList<String>)loadGame.get("Names");
+
+                Map<Integer, UserCourse> gameData = new HashMap<>();
+                for (int i = 0; i < names.size(); i++){
+
+                    ArrayList<Integer> strokes = (ArrayList<Integer>) ((Map<String,Object>)loadGame.get("User"+i)).get("Pars");
+                    Map<Integer, CourseThrows> courseThrows = new HashMap<>();
+                    for(int j = 0; j < strokes.size(); j++){
+                        CourseThrows ct = new CourseThrows();
+                        ArrayList<Object> parThrows = (ArrayList<Object>) ((Map<String,Object>)loadGame.get("User"+i)).get("Location"+Integer.toString(j+1));
+
+                        for(Object parThrow: parThrows){
+                            Map<String, GeoPoint> geoStartEnd = (Map<String, GeoPoint>) parThrow;
+                            GeoPoint startGeo = geoStartEnd.get("Start");
+                            GeoPoint endGeo = geoStartEnd.get("End");
+                            Throw singleThrow = new Throw(startGeo,endGeo);
+                            ct.addThrowEnd(singleThrow);
+                        }
+
+
+                        courseThrows.put(j,ct);
+                    }
+
+                    UserCourse myCourse = new UserCourse(strokes,courseThrows, names.get(i));
+                    gameData.put(i,myCourse);
+
+
+                }
+                callback.onCallback(gameData,names);
+
+            }
+
+        });
 
     }
 }
