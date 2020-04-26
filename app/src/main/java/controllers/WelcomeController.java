@@ -9,12 +9,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomeController {
     private Context context;
-    private FirebaseAuth auth;
 
 
-    public WelcomeController(Context context, FirebaseAuth auth) {
+    public WelcomeController(Context context) {
         this.context = context;
-        this.auth = auth;
     }
 
     public Intent clickLogin() {
@@ -23,9 +21,5 @@ public class WelcomeController {
 
     public Intent clickCreate() {
         return new Intent(context, RegisterActivity.class);
-    }
-
-    public boolean tryAutoLogin() {
-        return auth.getCurrentUser() != null;
     }
 }

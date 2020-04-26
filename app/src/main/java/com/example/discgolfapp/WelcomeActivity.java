@@ -17,7 +17,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     private WelcomeController controller;
     private WelcomeModel model;
 
-    private FirebaseAuth auth;
 
     private Button loginBtn;
     private Button createAccountBtn;
@@ -29,8 +28,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_welcome);
 
         // initialize model and controller to handle view events
-        auth = FirebaseAuth.getInstance();
-        controller = new WelcomeController(this, auth);
+        controller = new WelcomeController(this);
         model = new WelcomeModel();
 
         // initialize view elements
@@ -39,12 +37,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         loginBtn.setOnClickListener(this);
         createAccountBtn.setOnClickListener(this);
-
-        // try to log the user in if they have previously
-//        if (controller.tryAutoLogin()) {
-//            Intent intent = new Intent(this, CoursesActivity.class);
-//            startActivity(intent);
-//        }
     }
 
     @Override
