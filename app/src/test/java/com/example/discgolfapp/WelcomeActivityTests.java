@@ -21,7 +21,7 @@ public class WelcomeActivityTests {
 
     @Before
     public void setup() {
-        activity = Robolectric.setupActivity(WelcomeActivity.class);
+        activity = Robolectric.buildActivity(WelcomeActivity.class).create().get();
     }
 
     @Test

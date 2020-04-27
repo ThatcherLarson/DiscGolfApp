@@ -248,21 +248,28 @@ public class ScorecardActivity extends AppCompatActivity implements View.OnClick
         done = findViewById(R.id.btnDone);
         done.setOnClickListener(this);
         Bundle intentData = getIntent().getExtras();
-        ArrayList<String> players = intentData.getStringArrayList("Names");
-        ArrayList<Integer> pars = intentData.getIntegerArrayList("Pars");
-        ArrayList<ArrayList<Integer>> scores = new ArrayList<>();
-        for (int i = 0; i < players.size(); i++) {
-            scores.add(intentData.getIntegerArrayList(players.get(i) + "scores"));
+        if (intentData != null) {
+            ArrayList<String> players = intentData.getStringArrayList("Names");
+            ArrayList<Integer> pars = intentData.getIntegerArrayList("Pars");
+            ArrayList<ArrayList<Integer>> scores = new ArrayList<>();
+            for (int i = 0; i < players.size(); i++) {
+                scores.add(intentData.getIntegerArrayList(players.get(i) + "scores"));
+            }
+
+            textSize = getResources().getDimension(R.dimen.scorecardSize);
+
+            initTable(players, scores, pars);
         }
-
-        textSize = getResources().getDimension(R.dimen.scorecardSize);
-
-        initTable(players, scores, pars);
 
 
     }
 
-    private void initTable(ArrayList<String> players, ArrayList<ArrayList<Integer>> scores, ArrayList<Integer> pars) {
+    public void initTable(ArrayList<String> players, ArrayList<ArrayList<Integer>> scores, ArrayList<Integer> pars) {
+        if (players == null || scores == null || pars == null) {
+            Intent intent = new Intent(this, FindCourseActivity.class);
+            startActivity(intent);
+            return;
+        }
         TableRow headRow = new TableRow(this);
         headRow.setPadding(0, 10, 0, 10);
         headRow.setBackgroundColor(getResources().getColor(R.color.colorDarkBlue));
