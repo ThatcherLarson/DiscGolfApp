@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class ScorecardActivityTests {
         activity.initTable(players, scores, pars);
         activity.findViewById(R.id.btnDone).performClick();
         Intent exp = new Intent(activity, FindCourseActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = Shadows.shadowOf(activity).getNextStartedActivity();
 
         assertEquals(exp.getComponent(), actual.getComponent());
     }

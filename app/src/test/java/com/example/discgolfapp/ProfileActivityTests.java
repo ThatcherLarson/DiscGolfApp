@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -22,8 +23,11 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
+import org.robolectric.fakes.RoboMenuItem;
+import org.robolectric.shadows.ShadowActivity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -73,6 +77,54 @@ public class ProfileActivityTests {
 
         assertNotNull(actual);
 
+        activityCont.destroy();
+    }
+
+    @Test
+    public void clickProfileFromMenuLaunchesProfileActivity() {
+        ProfileActivity activity = activityCont.create().get();
+        MenuItem menuItem = new RoboMenuItem(R.id.profile);
+        activity.onOptionsItemSelected(menuItem);
+        ShadowActivity shadowActivity = Shadows.shadowOf(activity);
+        Intent expIntent = new Intent(activity, ProfileActivity.class);
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expIntent.getComponent(), actual.getComponent());
+        activityCont.destroy();
+    }
+
+    @Test
+    public void clickBagFromMenuLaunchesBagActivity() {
+        ProfileActivity activity = activityCont.create().get();
+        MenuItem menuItem = new RoboMenuItem(R.id.bag);
+        activity.onOptionsItemSelected(menuItem);
+        ShadowActivity shadowActivity = Shadows.shadowOf(activity);
+        Intent expIntent = new Intent(activity, MyBagActivity.class);
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expIntent.getComponent(), actual.getComponent());
+        activityCont.destroy();
+    }
+
+    @Test
+    public void clickMoreFromMenuLaunchesMoreActivity() {
+        ProfileActivity activity = activityCont.create().get();
+        MenuItem menuItem = new RoboMenuItem(R.id.more);
+        activity.onOptionsItemSelected(menuItem);
+        ShadowActivity shadowActivity = Shadows.shadowOf(activity);
+        Intent expIntent = new Intent(activity, MoreActivity.class);
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expIntent.getComponent(), actual.getComponent());
+        activityCont.destroy();
+    }
+
+    @Test
+    public void clickFindFromMenuLaunchesFindActivity() {
+        ProfileActivity activity = activityCont.create().get();
+        MenuItem menuItem = new RoboMenuItem(R.id.find);
+        activity.onOptionsItemSelected(menuItem);
+        ShadowActivity shadowActivity = Shadows.shadowOf(activity);
+        Intent expIntent = new Intent(activity, FindCourseActivity.class);
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expIntent.getComponent(), actual.getComponent());
         activityCont.destroy();
     }
 
