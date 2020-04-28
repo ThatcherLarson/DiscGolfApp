@@ -30,8 +30,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -41,7 +39,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import controllers.ProfileController;
-import io.grpc.Context;
 import models.ProfileModel;
 import util.Constants;
 
@@ -58,6 +55,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private ImageButton btnEditEmail;
     private ProgressBar update;
     private ImageView profImg;
+
+    public AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,15 +131,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.btnEditName:
-                buildEditDialog(false);
+                dialog = buildEditDialog(false);
                 break;
 
             case R.id.btnEditEmail:
-                buildEditDialog(true);
+                dialog = buildEditDialog(true);
                 break;
 
             case R.id.imageProfilePic:
-                buildEditProfPicDialog();
+                dialog = buildEditProfPicDialog();
                 break;
 
             default:
@@ -153,7 +152,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
 
-    private void buildEditDialog(final boolean editEmail) {
+    private AlertDialog buildEditDialog(final boolean editEmail) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_edit_profile, null);
@@ -204,9 +203,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         AlertDialog dialog = builder.create();
         dialog.show();
+        return dialog;
     }
 
-    private void buildEditProfPicDialog() {
+    private AlertDialog buildEditProfPicDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Change Profile Picture?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -228,9 +228,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-        builder.create();
+        AlertDialog dialog = builder.create();
         builder.show();
-
+        return dialog;
     }
 
     private void requestPhotoGalleryPermissions() {

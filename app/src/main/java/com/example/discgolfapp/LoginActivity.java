@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView incorrectLoginText;
     private CheckBox remember;
     private Button btnForgot;
+    public AlertDialog dialog;
 
 
     @Override
@@ -82,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.btnForgot:
                 btnForgot.setTextColor(getResources().getColor(R.color.colorSkyBlue));
-                buildForgotPassDialog();
+                dialog = buildForgotPassDialog();
         }
     }
 
@@ -104,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void buildForgotPassDialog() {
+    public AlertDialog buildForgotPassDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_forgot_password, null);
@@ -126,6 +127,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         AlertDialog dialog = builder.create();
         dialog.show();
+        return dialog;
     }
 
     public void forgotPass(String email) {

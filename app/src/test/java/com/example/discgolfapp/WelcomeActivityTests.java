@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
@@ -29,7 +30,7 @@ public class WelcomeActivityTests {
         activity.findViewById(R.id.btnLogin).performClick();
 
         Intent expIntent = new Intent(activity, LoginActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = Shadows.shadowOf(activity).getNextStartedActivity();
         assertEquals(expIntent.getComponent(), actual.getComponent());
     }
 
@@ -38,7 +39,7 @@ public class WelcomeActivityTests {
         activity.findViewById(R.id.btnSignUp).performClick();
 
         Intent expIntent = new Intent(activity, RegisterActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = Shadows.shadowOf(activity).getNextStartedActivity();
         assertEquals(expIntent.getComponent(), actual.getComponent());
     }
 }
