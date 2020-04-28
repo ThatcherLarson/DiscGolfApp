@@ -112,9 +112,14 @@ public class MeasureThrowActivity extends AppCompatActivity implements LocationL
         clearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gmap.clear();
+                if (gmap != null) {
+                    gmap.clear();
+                }
                 lat = 0;
-                lon=0;
+                lon = 0;
+                distanceInFeet = 0;
+                distanceInMeters = 0;
+                distFeet = "";
             }
         });
 
@@ -164,11 +169,15 @@ public class MeasureThrowActivity extends AppCompatActivity implements LocationL
         lon = location.getLongitude();
         latTextView.setText("Latitude: " + location.getLatitude()+"");
         lonTextView.setText("Longitude: " + location.getLongitude()+"");
-        gmap.setMinZoomPreference(19);
-        gmap.setMapType(gmap.MAP_TYPE_HYBRID);
-        LatLng spot = new LatLng(lat, lon);
-        gmap.addMarker(new MarkerOptions().position(spot));
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(spot));
+        if (gmap != null) {
+            gmap.setMinZoomPreference(19);
+            gmap.setMapType(gmap.MAP_TYPE_HYBRID);
+        }
+            LatLng spot = new LatLng(lat, lon);
+        if (gmap != null) {
+            gmap.addMarker(new MarkerOptions().position(spot));
+            gmap.moveCamera(CameraUpdateFactory.newLatLng(spot));
+        }
     }
 
     @Override
@@ -234,11 +243,15 @@ public class MeasureThrowActivity extends AppCompatActivity implements LocationL
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        gmap = googleMap;
-        gmap.setMapType(gmap.MAP_TYPE_HYBRID);
-        gmap.setMinZoomPreference(12);
+        if (gmap!=null) {
+            gmap = googleMap;
+            gmap.setMapType(gmap.MAP_TYPE_HYBRID);
+            gmap.setMinZoomPreference(12);
+        }
         LatLng start = new LatLng(43.073051, -89.401230);
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(start));
+        if (gmap != null) {
+            gmap.moveCamera(CameraUpdateFactory.newLatLng(start));
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
