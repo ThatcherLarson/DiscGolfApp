@@ -15,6 +15,7 @@ package="com.example.discgolfapp">
         android:roundIcon="@mipmap/ic_launch_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AddDiscActivity"></activity>
             <activity android:name=".ScorecardActivity"
                         android:label="@string/results" />
             <activity android:name=".RulesActivity" />
