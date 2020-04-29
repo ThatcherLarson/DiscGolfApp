@@ -29,10 +29,7 @@ package="com.example.discgolfapp">
             <activity android:name=".FindCourseActivity" />
             <activity android:name=".EnterCourseActivity" />
             <activity android:name=".MyBagActivity" />
-            <activity
-                android:name=".CoursesActivity"
-                android:exported="true" />
-            <activity android:name=".GamesActivity" />
+        <activity android:name=".GamesActivity" />
             <activity android:name=".LoginActivity" />
             <activity android:name=".RegisterActivity" />
 

@@ -3,7 +3,6 @@ package controllers;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.discgolfapp.CoursesActivity;
 import com.example.discgolfapp.GamesActivity;
 import com.google.firebase.auth.FirebaseAuth;
 

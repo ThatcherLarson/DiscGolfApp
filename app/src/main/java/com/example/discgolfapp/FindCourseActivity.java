@@ -40,14 +40,12 @@ import java.util.List;
 
 import adapters.MapAdapter;
 import controllers.CoursesController;
-import models.CoursesModel;
 import models.DiscMap;
 
 import static util.Constants.MAPVIEW_BUNDLE_KEY;
 
 public class FindCourseActivity extends AppCompatActivity implements OnMapReadyCallback {
     private CoursesController controller;
-    private CoursesModel model;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
     private double currentLatitude = 0.0;
@@ -70,7 +68,6 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
         fixGoogleMapBug();
 
         controller = new CoursesController(this);
-        model = new CoursesModel();
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -131,6 +128,7 @@ public class FindCourseActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     private void loadDataWithMiles(final FirestoreCallBack firestoreCallBack){
+
         db.collection("users").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

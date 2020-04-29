@@ -3,22 +3,22 @@ package com.example.discgolfapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import models.Disc;
-
-import java.util.List;
 
 public class DiscListAdapter extends RecyclerView.Adapter<DiscListAdapter.ViewHolder> {
 

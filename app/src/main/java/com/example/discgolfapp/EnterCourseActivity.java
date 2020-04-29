@@ -43,14 +43,12 @@ import java.util.Map;
 
 import adapters.ParAdapter;
 import controllers.CoursesController;
-import models.CoursesModel;
 import models.DiscMap;
 
 import static util.Constants.MAPVIEW_BUNDLE_KEY;
 
 public class EnterCourseActivity extends AppCompatActivity implements OnMapReadyCallback,NumberPicker.OnValueChangeListener {
     private CoursesController controller;
-    private CoursesModel model;
     private FirebaseAuth auth;
     private double longitude;
     private double latitude;
@@ -68,11 +66,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
 
     FirebaseFirestore db;
 
-    public EnterCourseActivity(FirebaseFirestore firestore,FirebaseAuth firebaseAuth){
-        db = firestore;
-        auth = firebaseAuth;
-    }
-
     public void setFirebaseAuth(FirebaseAuth firebaseAuth){
         auth = firebaseAuth;
     }
@@ -88,7 +81,6 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
         setContentView(R.layout.activity_enter_course);
         db = FirebaseFirestore.getInstance();
         controller = new CoursesController(this);
-        model = new CoursesModel();
         auth = FirebaseAuth.getInstance();
 
         Bundle mapViewBundle = null;

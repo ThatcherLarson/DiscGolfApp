@@ -24,13 +24,11 @@ import java.util.Map;
 
 import adapters.UsernameAdapter;
 import controllers.CoursesController;
-import models.CoursesModel;
 import models.DiscMap;
 
 
 public class StartGameActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
     private CoursesController controller;
-    private CoursesModel model;
     private FirebaseAuth auth;
 
     private Button startGame;
@@ -54,7 +52,6 @@ public class StartGameActivity extends AppCompatActivity implements NumberPicker
         db = FirebaseFirestore.getInstance();
 
         controller = new CoursesController(this);
-        model = new CoursesModel();
         auth = FirebaseAuth.getInstance();
 
         startGame = findViewById(R.id.start_game);
