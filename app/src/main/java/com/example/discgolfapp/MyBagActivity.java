@@ -6,26 +6,58 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognitionListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import models.Disc;
 
 public class MyBagActivity extends AppCompatActivity {
 
-    private ArrayList<String> discNames = new ArrayList<>();
-    private ArrayList<String> discImgUrls = new ArrayList<>();
+    private static final String TAG = "MyBagActivity";
+    List<Disc> fetchedDiscs = new ArrayList<>();
+
+    Button addDiscBtn;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_bag);
 
-        initImageBitmaps();
+        addDiscBtn = findViewById(R.id.addDiscBtn);
+
+        addDiscBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDisc();
+            }
+        });
+
+        getData();
+    }
+
+    public void addDisc() {
+
+        Intent intent = new Intent(this, AddDiscActivity.class);
+
+        startActivity(intent);
+        this.finish();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,42 +66,38 @@ public class MyBagActivity extends AppCompatActivity {
         return true;
     }
 
-    private void initImageBitmaps() {
-        discImgUrls.add("https://www.discraft.com/product/image/small/zflxringergt_max-dk_1.jpg");
-        discNames.add("Ringer GT Max");
+    private void getData() {
+        db.collection("discs").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot querySnapshots) {
+                        if (querySnapshots.isEmpty()) {
+                            Log.d(TAG, "onSuccess: LIST EMPTY");
+                            return;
+                        } else {
+                            for (DocumentSnapshot documentSnapshot : querySnapshots.getDocuments()) {
+                                fetchedDiscs.add(documentSnapshot.toObject(Disc.class));
+                            }
 
-        discImgUrls.add("https://www.discraft.com/product/image/small/zflxpunisher_max-dk_1.jpg");
-        discNames.add("Punisher Max");
-
-        discImgUrls.add("https://www.discraft.com/product/image/small/zflxnukess_max-dk_1.jpg");
-        discNames.add("Nukess Max");
-
-        discImgUrls.add("https://www.discraft.com/product/image/small/zflxnukeos_max-dk_1.jpg");
-        discNames.add("Nukeos Max");
-
-        discImgUrls.add("https://www.discraft.com/product/image/small/zflxheat_max-dk_1.jpg");
-        discNames.add("Heat Max");
-
-        discImgUrls.add("https://www.discraft.com/product/image/small/zflxundertaker_max-dk_1.jpg");
-        discNames.add("Undertaker Max");
-
-        initRecyclerView();
+                            initRecyclerView();
+                        }
+                    }})
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     private void initRecyclerView() {
         RecyclerView discListView = findViewById(R.id.discList);
-        DiscListAdapter adapter = new DiscListAdapter(this, discNames, discImgUrls);
+        DiscListAdapter adapter = new DiscListAdapter(this, fetchedDiscs);
         discListView.setAdapter(adapter);
         discListView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-
-    public void addDisc(View view) {
-
-    }
-
     public boolean onOptionsItemSelected(MenuItem item) {
-        //respond to menu item selection
         //respond to menu item selection
         switch (item.getItemId()) {
             case R.id.find:
