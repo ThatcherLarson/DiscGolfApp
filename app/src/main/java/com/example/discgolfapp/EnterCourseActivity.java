@@ -68,6 +68,20 @@ public class EnterCourseActivity extends AppCompatActivity implements OnMapReady
 
     FirebaseFirestore db;
 
+    public EnterCourseActivity(FirebaseFirestore firestore,FirebaseAuth firebaseAuth){
+        db = firestore;
+        auth = firebaseAuth;
+    }
+
+    public void setFirebaseAuth(FirebaseAuth firebaseAuth){
+        auth = firebaseAuth;
+    }
+
+
+    public void setFirebaseFirestore(FirebaseFirestore firestore){
+        db = firestore;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

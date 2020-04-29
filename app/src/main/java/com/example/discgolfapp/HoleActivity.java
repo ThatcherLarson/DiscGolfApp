@@ -139,7 +139,9 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Bundle bundleData = getIntent().getExtras();
         discMap = getIntent().getParcelableExtra("Map");
+
         boolean loadDB = bundleData.getBoolean("LoadDB");
+
         courseId = bundleData.getString("CourseId");
 
         parVals=discMap.getPars();
@@ -253,6 +255,7 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             players = bundleData.getStringArrayList("Names");
 
+
             //create playersAndThrows
             playersAndThrows = new HashMap<Integer, UserCourse>();
 
@@ -303,26 +306,30 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     final CharSequence tex = s;
                     playersAndThrows.get(playerPosition).setPar(parPosition,Integer.valueOf(tex.toString()));
+                    try {
+                        final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
+                        courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    Map<String, Object> document = task.getResult().getData();
+                                    Map<String, Object> user = (Map<String, Object>) document.get("User" + playerPosition);
+                                    ArrayList<Object> pars = (ArrayList<Object>) user.get("Pars");
 
-                    final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
-                    courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                Map<String,Object> document = task.getResult().getData();
-                                Map<String,Object> user = (Map<String, Object>) document.get("User"+playerPosition);
-                                ArrayList<Object> pars = (ArrayList<Object>)user.get("Pars");
+                                    pars.set(parPosition, Integer.valueOf(Integer.valueOf(tex.toString())));
+                                    user.put("Pars", pars);
+                                    document.put("User" + playerPosition, user);
 
-                                pars.set(parPosition, Integer.valueOf(Integer.valueOf(tex.toString())));
-                                user.put("Pars",pars);
-                                document.put("User"+playerPosition,user);
+                                    //set location
+                                    courseData.set(document);
+                                }
 
-                                //set location
-                                courseData.set(document);
                             }
+                        });
+                    }
+                    catch (NullPointerException m){
 
-                        }
-                    });
+                    }
                 }
             }
 
@@ -424,36 +431,40 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                     GeoPoint endGeo = new GeoPoint(endMarker.getPosition().latitude,endMarker.getPosition().longitude);
                     Throw tr = new Throw(startGeo,endGeo);
                     playersAndThrows.get(playerPosition).addThrow(tr,parPosition);
+                    try {
+                        final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
+                        courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot location = task.getResult();
+                                    Map<String, Object> mapLocation = location.getData();
+                                    Map<String, Object> users = ((Map<String, Object>) mapLocation.get("User" + playerPosition));
+                                    ArrayList<Object> geoPoints = (ArrayList<Object>) users.get("Location" + Integer.toString(parPosition + 1));
 
-                    final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
-                    courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot location = task.getResult();
-                                Map<String,Object> mapLocation = location.getData();
-                                Map<String,Object> users = ((Map<String,Object>)mapLocation.get("User"+playerPosition));
-                                ArrayList<Object> geoPoints = (ArrayList<Object>)users.get("Location"+Integer.toString(parPosition+1));
+                                    //create new location
+                                    Map<String, GeoPoint> locationMap = new HashMap<String, GeoPoint>();
+                                    GeoPoint startGeo = new GeoPoint(startMarker.getPosition().latitude, startMarker.getPosition().longitude);
+                                    GeoPoint endGeo = new GeoPoint(endMarker.getPosition().latitude, endMarker.getPosition().longitude);
+                                    locationMap.put("Start", startGeo);
+                                    locationMap.put("End", endGeo);
+                                    //Add location start and end
+                                    geoPoints.add(locationMap);
 
-                                //create new location
-                                Map<String,GeoPoint> locationMap = new HashMap<String, GeoPoint>() ;
-                                GeoPoint startGeo = new GeoPoint(startMarker.getPosition().latitude,startMarker.getPosition().longitude);
-                                GeoPoint endGeo = new GeoPoint(endMarker.getPosition().latitude,endMarker.getPosition().longitude);
-                                locationMap.put("Start",startGeo);
-                                locationMap.put("End",endGeo);
-                                //Add location start and end
-                                geoPoints.add(locationMap);
+                                    //get data
+                                    //update par start and end
+                                    users.put("Location" + Integer.toString(parPosition + 1), geoPoints);
+                                    mapLocation.put("User" + playerPosition, users);
+                                    //set location
+                                    courseData.set(mapLocation);
+                                }
 
-                                //get data
-                                //update par start and end
-                                users.put("Location" + Integer.toString(parPosition+1),geoPoints);
-                                mapLocation.put("User"+playerPosition,users);
-                                //set location
-                                courseData.set(mapLocation);
                             }
+                        });
+                    }
+                    catch (NullPointerException m){
 
-                        }
-                    });
+                    }
                     startMarker.remove();
                     endMarker.remove();
                 }
@@ -476,27 +487,32 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                     startMarker.remove();
                 }
 
-                //reset database
-                final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
+                try {
+                    //reset database
+                    final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
 
-                courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot location = task.getResult();
-                            Map<String,Object> mapLocation = location.getData();
-                            Map<String,Object> users = ((Map<String,Object>)mapLocation.get("User"+playerPosition));
-                            ArrayList<GeoPoint> geoPoints = new ArrayList<>();
-                            users.put("Location" + Integer.toString(parPosition+1),geoPoints);
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot location = task.getResult();
+                                Map<String, Object> mapLocation = location.getData();
+                                Map<String, Object> users = ((Map<String, Object>) mapLocation.get("User" + playerPosition));
+                                ArrayList<GeoPoint> geoPoints = new ArrayList<>();
+                                users.put("Location" + Integer.toString(parPosition + 1), geoPoints);
 
-                            mapLocation.put("User"+playerPosition,users);
+                                mapLocation.put("User" + playerPosition, users);
 
-                            courseData.set(mapLocation);
+                                courseData.set(mapLocation);
+                            }
+
                         }
+                    });
+                }
+                catch (NullPointerException m){
 
-                    }
-                });
+                }
             }
         });
 
@@ -678,30 +694,34 @@ public class HoleActivity extends AppCompatActivity implements OnMapReadyCallbac
                      polylines.remove(polylines.size()-1);
 
                      playersAndThrows.get(playerPosition).getUserThrows(parPosition).removeLast();
+                     try {
+                         final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
+                         courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                             @Override
+                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                 if (task.isSuccessful()) {
+                                     //Start
+                                     DocumentSnapshot document = task.getResult();
+                                     Map<String, Object> doc = document.getData();
+                                     Map<String, Object> playerThrows = ((Map<String, Object>) doc.get("User" + playerPosition));
+                                     ArrayList<Object> geoPoints = (ArrayList<Object>) playerThrows.get("Location" + Integer.toString(parPosition + 1));
 
-                     final DocumentReference courseData = db.collection("users").document(auth.getCurrentUser().getUid()).collection("games").document(courseId);
-                     courseData.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                         @Override
-                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                             if (task.isSuccessful()) {
-                                 //Start
-                                 DocumentSnapshot document = task.getResult();
-                                 Map<String,Object> doc = document.getData();
-                                 Map<String,Object> playerThrows = ((Map<String,Object> )doc.get("User"+playerPosition));
-                                 ArrayList<Object> geoPoints = (ArrayList<Object>) playerThrows.get("Location" + Integer.toString(parPosition+1));
 
+                                     //get data
+                                     geoPoints.remove(geoPoints.size() - 1);
+                                     playerThrows.put("Location" + Integer.toString(parPosition + 1), geoPoints);
+                                     doc.put("User" + playerPosition, playerThrows);
+                                     //update par start and end
+                                     //set location
+                                     courseData.set(doc);
+                                 }
 
-                                 //get data
-                                 geoPoints.remove(geoPoints.size()-1);
-                                 playerThrows.put("Location" + Integer.toString(parPosition+1),geoPoints);
-                                 doc.put("User"+playerPosition,playerThrows);
-                                 //update par start and end
-                                 //set location
-                                 courseData.set(doc);
                              }
+                         });
+                     }
+                     catch (NullPointerException m){
 
-                         }
-                     });
+                     }
                  }
              }
          });
