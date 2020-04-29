@@ -4,6 +4,17 @@
     <string name="create_account">Create an Account</string>
     <string name="welcome">Welcome!</string>
     <string name="prompt_email">Email</string>
+    <string name="prompt_new_disc_title">Disc Details</string>
+    <string name="add_disc">Add Disc</string>
+    <string name="prompt_disc_id">ID</string>
+    <string name="prompt_disc_name">Name</string>
+    <string name="prompt_disc_color">Color</string>
+    <string name="prompt_disc_manufacturer">Manufacturer</string>
+    <string name="prompt_disc_type">Type</string>
+    <string name="prompt_disc_distance">Avg. Dist.</string>
+    <string name="prompt_disc_submit">Submit</string>
+    <string name="prompt_disc_delete">Delete</string>
+    <string name="prompt_disc_edit">Edit</string>
     <string name="prompt_password">Password</string>
     <string name="string_incorrect_login">The email and/or password you entered is incorrect</string>
     <string name="string_first_name">First Name</string>
