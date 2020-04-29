@@ -14,7 +14,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -25,8 +24,9 @@ import models.Disc;
 
 public class AddDiscActivity extends AppCompatActivity {
 
-    Button submitDisk;
-    Button deleteDisk;
+    Button submitDisc;
+    Button deleteDisc;
+    Button cancelDisc;
     EditText discName;
     EditText discType;
     EditText discMan;
@@ -43,8 +43,9 @@ public class AddDiscActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_disc);
 
-        submitDisk = findViewById(R.id.submit_new_disk);
-        deleteDisk = findViewById(R.id.delete_disk);
+        submitDisc = findViewById(R.id.submit_new_disk);
+        deleteDisc = findViewById(R.id.delete_disk);
+        cancelDisc = findViewById(R.id.cancel_disc);
         discName = findViewById(R.id.new_disc_name);
         discType =  findViewById(R.id.new_disc_type);
         discMan = findViewById(R.id.new_disc_manufacturer);
@@ -54,6 +55,13 @@ public class AddDiscActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
+
+        cancelDisc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancel();
+            }
+        });
 
         if (bundle != null) {
 
@@ -69,7 +77,6 @@ public class AddDiscActivity extends AppCompatActivity {
 
             // get correct target name from firebase
             getDocName(existingDisc);
-
         }
 
         else {
@@ -77,7 +84,7 @@ public class AddDiscActivity extends AppCompatActivity {
             int a = rand.nextInt();
             final String target = "Disc-" + a;
 
-            submitDisk.setOnClickListener(new View.OnClickListener() {
+            submitDisc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     submitNewDisk(target);
@@ -86,7 +93,14 @@ public class AddDiscActivity extends AppCompatActivity {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////\
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void cancel() {
+        startActivity(new Intent(this, MyBagActivity.class));
+        this.finish();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void getDocName(final Disc existingDisc) {
 
@@ -103,7 +117,7 @@ public class AddDiscActivity extends AppCompatActivity {
                                 if (document.getData().get("uid").equals(existingDisc.getUid())) {
 
                                     // submit edited disc
-                                    submitDisk.setOnClickListener(new View.OnClickListener() {
+                                    submitDisc.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             submitNewDisk(document.getId());
@@ -111,7 +125,7 @@ public class AddDiscActivity extends AppCompatActivity {
                                     });
 
                                     // delete this disc
-                                    deleteDisk.setOnClickListener(new View.OnClickListener() {
+                                    deleteDisc.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             deleteThisDisk(document.getId());
