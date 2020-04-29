@@ -2,27 +2,92 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="15dp"
     android:id="@+id/discListLayout">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_height="80dp"
-        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_width="100dp"
         android:id="@+id/discImage"
         android:src="@mipmap/ic_launcher"
         />
 
     <TextView
+        android:id="@+id/disc_name_text"
+        android:text="@string/prompt_disc_name"
+        android:layout_toRightOf="@+id/discImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Disc1"
+        android:layout_marginLeft="15dp"
+        android:ems="7"
+        android:textStyle="bold"
         android:textColor="#000"
-        android:textSize="17sp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:id="@+id/disc_name"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/disc_type_text"
+        android:text="@string/prompt_disc_type"
         android:layout_toRightOf="@+id/discImage"
-        />
+        android:layout_below="@id/disc_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:ems="7"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/disc_distance_text"
+        android:text="@string/prompt_disc_distance"
+        android:layout_toRightOf="@+id/discImage"
+        android:layout_below="@id/disc_type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:ems="7"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/disc_manufacturer_text"
+        android:text="@string/prompt_disc_manufacturer"
+        android:layout_toRightOf="@+id/disc_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="1dp"
+        android:ems="7"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/disc_color_text"
+        android:text="@string/prompt_disc_color"
+        android:layout_toRightOf="@+id/disc_name_text"
+        android:layout_below="@id/disc_manufacturer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:ems="7"
+        android:textColor="#000"
+        android:textSize="15sp"   />
+
+    <Button
+        android:id="@+id/edit_disc"
+        android:text="@string/prompt_disc_edit"
+        android:layout_toRightOf="@+id/disc_name_text"
+        android:layout_below="@id/disc_color_text"
+        android:layout_width="120dp"
+        android:layout_height="37dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000"
+        android:background="#dbfaff"
+        android:textSize="14sp"  />
+
 
 </RelativeLayout>
