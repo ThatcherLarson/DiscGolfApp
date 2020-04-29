@@ -6,6 +6,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_new_disc_title">Disc Details</string>
     <string name="add_disc">Add Disc</string>
+    <string name="cancel_disc">Cancel</string>
     <string name="prompt_disc_id">ID</string>
     <string name="prompt_disc_name">Name</string>
     <string name="prompt_disc_color">Color</string>
