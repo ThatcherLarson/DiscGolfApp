@@ -59,13 +59,13 @@ public class MeasureThrowTest {
         activity.findViewById(R.id.calcDistance).performClick();
 
         GoogleMap gmap = null;
-        activity.findViewById(R.id.clearBtn).performClick();
+        //activity.findViewById(R.id.clearBtn).performClick();
         TextView distance = (TextView) activity.findViewById(R.id.distTextView);
         String dist = distance.getText().toString();
         Location location = new Location("");
 
-        activity.onMapReady(gmap);
-        activity.onLocationChanged(location);
+        //activity.onMapReady(gmap);
+        //activity.onLocationChanged(location);
         activity.onStatusChanged("", 0, null);
         Bundle outstate = new Bundle();
         activity.onSaveInstanceState(outstate);

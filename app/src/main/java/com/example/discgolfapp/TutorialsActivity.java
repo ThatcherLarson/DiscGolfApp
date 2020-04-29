@@ -37,23 +37,23 @@ public class TutorialsActivity extends AppCompatActivity {
     }
 
     private void initImageBitmaps() {
-        tutorialThumbnails.add("https://i.ytimg.com/an_webp/Sgn6Os4YSW0/mqdefault_6s.webp?du=3000&sqp=CMvN_fQF&rs=AOn4CLAcfRr9qGijWn57QBo5N7Yn4X-J8w");
+        tutorialThumbnails.add("https://img.youtube.com/vi/Sgn6Os4YSW0/hqdefault.jpg");
         tutorialText.add("Discraft Disc Golf Clinic: Throwing Basics");
-        tutorialURL.add("https://www.youtube.com/watch?v=Sgn6Os4YSW0&t=");
+        tutorialURL.add("https://www.youtube.com/watch?v=Sgn6Os4YSW0");
 
-        tutorialThumbnails.add("https://i.ytimg.com/an_webp/q9e_lEs7ASE/mqdefault_6s.webp?du=3000&sqp=CO_B_fQF&rs=AOn4CLAZHN18bMFXaTaemIAsBWFwITJfJg");
+        tutorialThumbnails.add("https://img.youtube.com/vi/q9e_lEs7ASE/hqdefault.jpg");
         tutorialText.add("FORM CRITIQUE AND DISTANCE TIPS");
-        tutorialURL.add("https://www.youtube.com/watch?v=q9e_lEs7ASE&t=");
+        tutorialURL.add("https://www.youtube.com/watch?v=q9e_lEs7ASE");
 
-        tutorialThumbnails.add("https://i.ytimg.com/an_webp/SQ6Wutvn4Mg/mqdefault_6s.webp?du=3000&sqp=CJiy_fQF&rs=AOn4CLAEc1AUVJPAig7l_k-oL30nPQRVFQ");
+        tutorialThumbnails.add("https://img.youtube.com/vi/SQ6Wutvn4Mg/hqdefault.jpg");
         tutorialText.add("Nate Sexton Disc Golf Clinic - Sidearm");
         tutorialURL.add("https://www.youtube.com/watch?v=SQ6Wutvn4Mg");
 
-        tutorialThumbnails.add("https://i.ytimg.com/an_webp/g8IdEC99thc/mqdefault_6s.webp?du=3000&sqp=COii_fQF&rs=AOn4CLApmDlFS-IXAebjR_EIVlIjWWc37w");
+        tutorialThumbnails.add("https://img.youtube.com/vi/g8IdEC99thc/hqdefault.jpg");
         tutorialText.add("Physics of Flight 3.02: Putting w/ Robert McCall | Disc Golf Instructional Video");
         tutorialURL.add("https://www.youtube.com/watch?v=g8IdEC99thc");
 
-        tutorialThumbnails.add("https://i.ytimg.com/an_webp/T7Buk1Hn8jM/mqdefault_6s.webp?du=3000&sqp=CLOd_fQF&rs=AOn4CLCbL5m9aa0jltkC2cDvxgOYQv0xow");
+        tutorialThumbnails.add("https://img.youtube.com/vi/T7Buk1Hn8jM/hqdefault.jpg");
         tutorialText.add("Disc Golf for Beginners with Nate Sexton");
         tutorialURL.add("https://www.youtube.com/watch?v=T7Buk1Hn8jM");
 

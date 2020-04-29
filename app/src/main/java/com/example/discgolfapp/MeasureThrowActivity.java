@@ -2,14 +2,19 @@ package com.example.discgolfapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -85,8 +90,17 @@ public class MeasureThrowActivity extends AppCompatActivity implements LocationL
             @Override
             public void onClick(View view) {
                 getLocation();
-                locA.setLatitude(lat);
-                locA.setLongitude(lon);
+                new CountDownTimer(1000, 1000) {
+                    public void onFinish() {
+                        locA.setLatitude(lat);
+                        locA.setLongitude(lon);
+                    }
+
+                    public void onTick(long millisUntilFinished) {
+                        // millisUntilFinished    The amount of time until finished.
+                    }
+                }.start();
+
             }
         });
 
@@ -94,27 +108,42 @@ public class MeasureThrowActivity extends AppCompatActivity implements LocationL
             @Override
             public void onClick(View view) {
                 getLocation();
-                locB.setLatitude(lat);
-                locB.setLongitude(lon);
+                new CountDownTimer(1000, 1000) {
+                    public void onFinish() {
+                        locB.setLatitude(lat);
+                        locB.setLongitude(lon);
+                    }
+
+                    public void onTick(long millisUntilFinished) {
+                        // millisUntilFinished    The amount of time until finished.
+                    }
+                }.start();
+
             }
         });
 
         calcDistance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                distanceInMeters = locA.distanceTo(locB);
-                distanceInFeet = distanceInMeters * (float)(1/.3048);
-                distFeet = roundToOneDigit(distanceInFeet);
-                distTextView.setText("Distance: " + distFeet + " feet");
+                new CountDownTimer(1000, 1000) {
+                    public void onFinish() {
+                        distanceInMeters = locA.distanceTo(locB);
+                        distanceInFeet = distanceInMeters * (float) (1 / .3048);
+                        distTextView.setText("Distance: " + Math.round(distanceInFeet) + " feet");
+                    }
+
+                    public void onTick(long millisUntilFinished) {
+                        // millisUntilFinished    The amount of time until finished.
+                    }
+                }.start();
+
             }
         });
 
         clearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gmap != null) {
-                    gmap.clear();
-                }
+                gmap.clear();
                 lat = 0;
                 lon = 0;
                 distanceInFeet = 0;
@@ -150,34 +179,27 @@ public class MeasureThrowActivity extends AppCompatActivity implements LocationL
 
 
     void getLocation() {
-        try {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            return;
+        } else {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1000, this);
         }
-        catch(SecurityException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public static String roundToOneDigit(float paramFloat) {
-        return String.format("%.1f", paramFloat);
     }
 
     @Override
     public void onLocationChanged(Location location) {
         lat = location.getLatitude();
         lon = location.getLongitude();
-        latTextView.setText("Latitude: " + location.getLatitude()+"");
-        lonTextView.setText("Longitude: " + location.getLongitude()+"");
-        if (gmap != null) {
-            gmap.setMinZoomPreference(19);
-            gmap.setMapType(gmap.MAP_TYPE_HYBRID);
-        }
-            LatLng spot = new LatLng(lat, lon);
-        if (gmap != null) {
-            gmap.addMarker(new MarkerOptions().position(spot));
-            gmap.moveCamera(CameraUpdateFactory.newLatLng(spot));
-        }
+        LatLng spot = new LatLng(lat, lon);
+        latTextView.setText("Latitude: " + lat + "");
+        lonTextView.setText("Longitude: " + lon + "");
+        gmap.setMinZoomPreference(19);
+        gmap.setMapType(gmap.MAP_TYPE_HYBRID);
+        gmap.addMarker(new MarkerOptions().position(spot));
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(spot));
     }
 
     @Override
@@ -196,9 +218,9 @@ public class MeasureThrowActivity extends AppCompatActivity implements LocationL
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-            mapView.onResume();
+        mapView.onResume();
 
     }
 
@@ -226,32 +248,34 @@ public class MeasureThrowActivity extends AppCompatActivity implements LocationL
         super.onStop();
         mapView.onStop();
     }
+
     @Override
     protected void onPause() {
         mapView.onPause();
         super.onPause();
     }
+
     @Override
     protected void onDestroy() {
         mapView.onDestroy();
         super.onDestroy();
     }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        if (gmap!=null) {
-            gmap = googleMap;
-            gmap.setMapType(gmap.MAP_TYPE_HYBRID);
-            gmap.setMinZoomPreference(12);
-        }
+
+        gmap = googleMap;
+        gmap.setMapType(gmap.MAP_TYPE_HYBRID);
+        gmap.setMinZoomPreference(12);
         LatLng start = new LatLng(43.073051, -89.401230);
-        if (gmap != null) {
-            gmap.moveCamera(CameraUpdateFactory.newLatLng(start));
-        }
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(start));
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
