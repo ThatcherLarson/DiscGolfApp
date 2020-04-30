@@ -2,11 +2,8 @@ package com.example.discgolfapp;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import android.provider.Settings;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -19,15 +16,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
-import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = Build.VERSION_CODES.P)
@@ -38,7 +31,7 @@ public class LoginActivityTests {
 
     @Before
     public void setup() {
-        appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         FirebaseApp fapp = FirebaseApp.initializeApp(appContext);
         auth = FirebaseAuth.getInstance(fapp);
         activity = Robolectric.buildActivity(LoginActivity.class).create().get();

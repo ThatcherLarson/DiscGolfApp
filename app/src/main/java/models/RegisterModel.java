@@ -8,11 +8,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterModel {
 
-    private FirebaseFirestore db;
     private FirebaseAuth auth;
 
-    public RegisterModel(FirebaseFirestore db, FirebaseAuth auth) {
-        this.db = db;
+    public RegisterModel(FirebaseAuth auth) {
         this.auth = auth;
     }
 
